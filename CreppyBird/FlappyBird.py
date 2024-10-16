@@ -1,25 +1,44 @@
 import pygame
 import os
 import random
-
+#Alterações Grupo 2
+from PIL import Image, ImageSequence
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
-IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bg.png')))
-IMAGENS_PASSARO = [
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird1.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird2.png'))),
-    pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'bird3.png'))),
-]
+IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imgs', 'background_cemiterio.png'))
+
+# Obtenha as dimensões originais
+largura_original = IMAGEM_BACKGROUND_ORIGINAL.get_width()
+altura_original = IMAGEM_BACKGROUND_ORIGINAL.get_height()
+fator_escala = 0.5
+# Calculo das novas dimensões
+TELA_LARGURA = int(largura_original * fator_escala)
+TELA_ALTURA = int(altura_original * fator_escala)
+
+# Redimensionando a imagem
+IMAGEM_BACKGROUND = pygame.transform.scale(IMAGEM_BACKGROUND_ORIGINAL, (TELA_LARGURA, TELA_ALTURA))
+
+def load_gif(filename):
+    gif = Image.open(filename)
+    frames = []
+    for frame in ImageSequence.Iterator(gif):
+        frame = frame.convert('RGBA')
+        pygame_surface = pygame.image.frombuffer(
+            frame.tobytes(), frame.size, frame.mode
+        )
+        frames.append(pygame.transform.scale2x(pygame_surface))
+    return frames
+IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 50)
 
 
 class Passaro:
-    IMGS = IMAGENS_PASSARO
+    IMGS = IMAGENS_CORVO 
     # animações da rotação
     ROTACAO_MAXIMA = 25
     VELOCIDADE_ROTACAO = 20
@@ -108,7 +127,7 @@ class Cano:
         self.definir_altura()
 
     def definir_altura(self):
-        self.altura = random.randrange(50, 450)
+        self.altura = random.randrange(50, 400)
         self.pos_topo = self.altura - self.CANO_TOPO.get_height()
         self.pos_base = self.altura + self.DISTANCIA
 
@@ -174,9 +193,9 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
 
 
 def main():
-    passaros = [Passaro(230, 350)]
+    passaros = [Passaro(TELA_LARGURA // 4, TELA_ALTURA // 2)]
     chao = Chao(730)
-    canos = [Cano(700)]
+    canos = [Cano(800)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     relogio = pygame.time.Clock()
