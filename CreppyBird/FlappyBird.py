@@ -1,3 +1,4 @@
+import time
 import pygame
 import os
 import random
@@ -9,6 +10,29 @@ TELA_ALTURA = 800
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
 IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imgs', 'background_cemiterio.png'))
+
+#Alteração grupo 3
+pygame.mixer.init()
+musica_de_fundo = pygame.mixer.music.load('this-is-halloween-172354.mp3')
+pygame.mixer.music.set_volume(0.5)
+som_contagem = pygame.mixer.Sound('smw_kick.wav')
+som_pulo = pygame.mixer.Sound("mixkit-player-jumping-in-a-video-game-2043.wav")
+som_colisão = pygame.mixer.Sound("mixkit-arcade-fast-game-over-233.wav")
+som_pulo.set_volume(0.2)
+
+def contagem(seconds, tela):
+    while seconds >= 0:
+        tela.blit(IMAGEM_BACKGROUND, (0, 0))
+        font = pygame.font.SysFont('arial', 74)
+        if seconds == 0:
+            text = font.render('GO!', True, (255, 255, 255))
+        else:
+            text = font.render(str(seconds), True, (255, 255, 255))
+        tela.blit(text, (TELA_LARGURA // 2 - text.get_width() // 2, TELA_ALTURA // 2 - text.get_height() // 2))
+        pygame.display.flip()
+        time.sleep(1)
+        seconds -= 1
+        som_contagem.play()
 
 # Obtenha as dimensões originais
 largura_original = IMAGEM_BACKGROUND_ORIGINAL.get_width()
@@ -199,8 +223,11 @@ def main():
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     relogio = pygame.time.Clock()
-
+    pygame.mixer.music.play(-1)
+    contagem(3, tela)
     rodando = True
+    pygame.mixer.music.set_volume(0.3)
+
     while rodando:
         relogio.tick(30)
 
@@ -214,6 +241,7 @@ def main():
                 if evento.key == pygame.K_SPACE:
                     for passaro in passaros:
                         passaro.pular()
+                        som_pulo.play()
 
         # mover as coisas
         for passaro in passaros:
@@ -226,6 +254,8 @@ def main():
             for i, passaro in enumerate(passaros):
                 if cano.colidir(passaro):
                     passaros.pop(i)
+                    pygame.mixer.music.stop()
+                    som_colisão.play()
                 if not cano.passou and passaro.x > cano.x:
                     cano.passou = True
                     adicionar_cano = True
