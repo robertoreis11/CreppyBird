@@ -3,10 +3,19 @@ import pygame
 import os
 import random
 #Alterações Grupo 2
+#importa a biblioteca "pip install pillow"
 from PIL import Image, ImageSequence
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
+# <<<<<<< HEAD
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('pipe.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('base.png')))
+IMAGEM_BACKGROUND = pygame.transform.scale2x(pygame.image.load(os.path.join('bg.png')))
+IMAGEM_GAME_OVER = pygame.image.load(os.path.join('gameover.png'))
+IMG_GAME_OVER = pygame.transform.scale(IMAGEM_GAME_OVER, (400, 100))
+
+# =======
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load('imgs/pipe.png'))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load('imgs/base.jpg'))
 IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load('imgs/background_cemiterio.png')
@@ -56,6 +65,7 @@ def load_gif(filename):
         frames.append(pygame.transform.scale2x(pygame_surface))
     return frames
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
+# >>>>>>> 61f54af1698dad0fb3da782e3dfa732c63920ce9
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 50)
@@ -120,7 +130,6 @@ class Passaro:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
-
         # se o passaro tiver caindo eu não vou bater asa
         if self.angulo <= -80:
             self.imagem = self.IMGS[1]
@@ -137,7 +146,7 @@ class Passaro:
 
 
 class Cano:
-    DISTANCIA = 200
+    DISTANCIA = 250
     VELOCIDADE = 5
 
     def __init__(self, x):
@@ -202,8 +211,28 @@ class Chao:
         tela.blit(self.IMAGEM, (self.x1, self.y))
         tela.blit(self.IMAGEM, (self.x2, self.y))
 
+#EQUIPE 4
 
-def desenhar_tela(tela, passaros, canos, chao, pontos):
+def game_over(tela):
+    tela.blit(IMG_GAME_OVER, (50, 300))
+
+    fonte = pygame.font.SysFont('arial', 40)
+    texto_reiniciar = fonte.render("Pressione espaço para reiniciar", True, (255, 255, 255))
+    tela.blit(texto_reiniciar, (20, 400))
+
+    pygame.display.update()
+    while True:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_SPACE: 
+                    main()
+                    return
+                    
+def desenhar_tela(tela, passaros, canos, chao, pontos, vidas):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
     for passaro in passaros:
         passaro.desenhar(tela)
@@ -222,6 +251,8 @@ def main():
     canos = [Cano(800)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
+    vidas = 0
+    
     relogio = pygame.time.Clock()
     pygame.mixer.music.play(-1)
     contagem(3, tela)
@@ -254,8 +285,12 @@ def main():
             for i, passaro in enumerate(passaros):
                 if cano.colidir(passaro):
                     passaros.pop(i)
+# <<<<<<< HEAD
+
+# =======
                     pygame.mixer.music.stop()
                     som_colisão.play()
+# >>>>>>> 61f54af1698dad0fb3da782e3dfa732c63920ce9
                 if not cano.passou and passaro.x > cano.x:
                     cano.passou = True
                     adicionar_cano = True
@@ -273,7 +308,11 @@ def main():
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 passaros.pop(i)
 
-        desenhar_tela(tela, passaros, canos, chao, pontos)
+        #verifica se bateu
+        if len(passaros) == 0:
+            game_over(tela)
+
+        desenhar_tela(tela, passaros, canos, chao, pontos, vidas)
 
 
 if __name__ == '__main__':
