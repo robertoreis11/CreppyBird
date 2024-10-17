@@ -7,17 +7,17 @@ from PIL import Image, ImageSequence
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'pipe.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.png')))
-IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imgs', 'background_cemiterio.png'))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imagens', 'pipe.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imagens', 'base.png')))
+IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imagens', 'background_cemiterio.png'))
 
 #Alteração grupo 3
 pygame.mixer.init()
-musica_de_fundo = pygame.mixer.music.load('this-is-halloween-172354.mp3')
+musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
 pygame.mixer.music.set_volume(0.5)
-som_contagem = pygame.mixer.Sound('smw_kick.wav')
-som_pulo = pygame.mixer.Sound("mixkit-player-jumping-in-a-video-game-2043.wav")
-som_colisão = pygame.mixer.Sound("mixkit-arcade-fast-game-over-233.wav")
+som_contagem = pygame.mixer.Sound(os.path.join('sons','smw_kick.wav'))
+som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
+som_colisão = pygame.mixer.Sound(os.path.join('sons','mixkit-arcade-fast-game-over-233.wav'))
 som_pulo.set_volume(0.2)
 
 def contagem(seconds, tela):
