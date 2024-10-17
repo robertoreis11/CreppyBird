@@ -1,1 +1,0 @@
-self.x2 = self.LARGURA
