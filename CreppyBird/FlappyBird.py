@@ -7,9 +7,9 @@ from PIL import Image, ImageSequence
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imagens', 'pipe.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imagens', 'base.png')))
-IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imagens', 'background_cemiterio.png'))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load('imgs/pipe.png'))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load('imgs/base.png'))
+IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load('imgs/background_cemiterio.png')
 
 #Alteração grupo 3
 pygame.mixer.init()
