@@ -20,7 +20,6 @@ FONTE_PONTOS = pygame.font.SysFont('arial', 50)
 
 class Passaro:
     IMGS = IMAGENS_PASSARO
-    # animações da rotação
     ROTACAO_MAXIMA = 25
     VELOCIDADE_ROTACAO = 20
     TEMPO_ANIMACAO = 5
@@ -41,11 +40,9 @@ class Passaro:
         self.altura = self.y
 
     def mover(self):
-        # calcular o deslocamento
         self.tempo += 1
         deslocamento = 1.5 * (self.tempo**2) + self.velocidade * self.tempo
 
-        # restringir o deslocamento
         if deslocamento > 16:
             deslocamento = 16
         elif deslocamento < 0:
@@ -53,7 +50,6 @@ class Passaro:
 
         self.y += deslocamento
 
-        # o angulo do passaro
         if deslocamento < 0 or self.y < (self.altura + 50):
             if self.angulo < self.ROTACAO_MAXIMA:
                 self.angulo = self.ROTACAO_MAXIMA
@@ -62,7 +58,6 @@ class Passaro:
                 self.angulo -= self.VELOCIDADE_ROTACAO
 
     def desenhar(self, tela):
-        # definir qual imagem do passaro vai usar
         self.contagem_imagem += 1
 
         if self.contagem_imagem < self.TEMPO_ANIMACAO:
@@ -77,13 +72,10 @@ class Passaro:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
-
-        # se o passaro tiver caindo eu não vou bater asa
         if self.angulo <= -80:
             self.imagem = self.IMGS[1]
             self.contagem_imagem = self.TEMPO_ANIMACAO*2
 
-        # desenhar a imagem
         imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
         pos_centro_imagem = self.imagem.get_rect(topleft=(self.x, self.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
@@ -112,8 +104,9 @@ class Cano:
         self.pos_topo = self.altura - self.CANO_TOPO.get_height()
         self.pos_base = self.altura + self.DISTANCIA
 
-    def mover(self):
-        self.x -= self.VELOCIDADE
+    def mover(self, pontos: float):
+        parametro = pontos / 10
+        self.x -= self.VELOCIDADE + parametro
 
     def desenhar(self, tela):
         tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
@@ -181,11 +174,13 @@ def main():
     pontos = 0
     relogio = pygame.time.Clock()
 
+    checkpoint_pontos = 50
+    velocidade_extra = 0
+
     rodando = True
     while rodando:
         relogio.tick(30)
 
-        # interação com o usuário
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
@@ -196,13 +191,13 @@ def main():
                     for passaro in passaros:
                         passaro.pular()
 
-        # mover as coisas
         for passaro in passaros:
             passaro.mover()
         chao.mover()
 
         adicionar_cano = False
         remover_canos = []
+
         for cano in canos:
             for i, passaro in enumerate(passaros):
                 if cano.colidir(passaro):
@@ -210,12 +205,18 @@ def main():
                 if not cano.passou and passaro.x > cano.x:
                     cano.passou = True
                     adicionar_cano = True
-            cano.mover()
+
+            cano.mover(pontos + velocidade_extra)
+
+            if pontos >= checkpoint_pontos:
+                checkpoint_pontos += 10
+                velocidade_extra += 30
+
             if cano.x + cano.CANO_TOPO.get_width() < 0:
                 remover_canos.append(cano)
 
         if adicionar_cano:
-            pontos += 1
+            pontos += 5
             canos.append(Cano(600))
         for cano in remover_canos:
             canos.remove(cano)
