@@ -3,6 +3,7 @@ import pygame
 import os
 import random
 #Alterações Grupo 2
+# pip install Pillow
 from PIL import Image, ImageSequence
 TELA_LARGURA = 500
 TELA_ALTURA = 800
