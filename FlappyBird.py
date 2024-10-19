@@ -3,6 +3,7 @@ import pygame
 import os
 import random
 # Alterações Grupo 2
+from pygame.locals import QUIT, KEYDOWN, K_p
 # pip install Pillow
 from PIL import Image, ImageSequence
 
@@ -63,7 +64,7 @@ IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 50)
 
-class Passaro:
+class Passaro(pygame.sprite.Sprite):
     IMGS = IMAGENS_CORVO 
     # animações da rotação
     ROTACAO_MAXIMA = 25
@@ -71,6 +72,7 @@ class Passaro:
     TEMPO_ANIMACAO = 5
 
     def __init__(self, x, y):
+        super().__init__()
         self.x = x
         self.y = y
         self.angulo = 0
@@ -79,6 +81,9 @@ class Passaro:
         self.tempo = 0
         self.contagem_imagem = 0
         self.imagem = self.IMGS[0]
+        self.rect = self.imagem.get_rect()  # Definindo o rect da imagem
+        self.rect.topleft = (x, y)
+        self.image = self.imagem
 
     def pular(self):
         self.velocidade = -10.5
@@ -272,6 +277,47 @@ def jogo():
         desenhar_tela(tela, passaros, canos, chao, pontos)
 
     pygame.mixer.music.stop()
+
+pygame.init()
+
+tela = pygame.display.set_mode((800, 600))
+pygame.display.set_caption('Pausa')
+pygame.display.flip()
+
+# Criando o grupo de sprites
+todos_sprites = pygame.sprite.Group()
+passaro = Passaro(100, 200)
+todos_sprites.add(passaro)
+
+# Variável de controle de pausa
+pausado = False
+
+# Relógio para controle de FPS
+clock = pygame.time.Clock()
+
+# Loop principal do jogo
+correndo = True
+while correndo:
+    for evento in pygame.event.get():
+        if evento.type == QUIT:
+            correndo = False
+
+        # Verifica se a tecla "P" foi pressionada para pausar/continuar
+        if evento.type == KEYDOWN and evento.key == K_p:
+            pausado = not pausado  # Alterna entre pausar e continuar
+
+    # Atualizando os sprites apenas se o jogo não estiver pausado
+    if not pausado:
+        todos_sprites.update()
+
+    # Atualiza a tela
+    tela.fill((255, 255, 255))  # Limpa a tela com a cor branca
+    todos_sprites.draw(tela)  # Desenha os sprites
+    pygame.display.flip()  # Atualiza a tela
+
+    # Controla a taxa de frames por segundo
+    clock.tick(60)
+
     pygame.quit()
 
 if __name__ == '__main__':
