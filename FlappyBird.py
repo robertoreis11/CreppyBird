@@ -2,23 +2,29 @@ import time
 import pygame
 import os
 import random
+
 #Alterações Grupo 2
-# pip install Pillow
 from PIL import Image, ImageSequence
+
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join( 'imgs', 'caixao.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join( 'imgs', 'base.jpg')))
-IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join( 'imgs', 'background_cemiterio.png'))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
+IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
+IMAGEM_VIDA0 = pygame.image.load(os.path.join('imgs', 'vida0.png'))
+IMAGEM_VIDA1 = pygame.image.load(os.path.join('imgs', 'vida1.png'))
+IMAGEM_VIDA2 = pygame.image.load(os.path.join('imgs', 'vida2.png'))
+IMAGEM_VIDA3 = pygame.image.load(os.path.join('imgs', 'vida3.png'))
+IMAGEM_GAME_OVER = pygame.image.load(os.path.join('imgs', 'gameover.png'))
 
-#Alteração grupo 3
+# Alteração Grupo 3
 pygame.mixer.init()
 musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
 pygame.mixer.music.set_volume(0.5)
-som_contagem = pygame.mixer.Sound(os.path.join('sons','smw_kick.wav'))
+som_contagem = pygame.mixer.Sound(os.path.join('sons', 'smw_kick.wav'))
 som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
-som_colisão = pygame.mixer.Sound(os.path.join('sons','mixkit-arcade-fast-game-over-233.wav'))
+som_colisão = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-over-233.wav'))
 som_pulo.set_volume(0.2)
 
 def contagem(seconds, tela):
@@ -35,17 +41,6 @@ def contagem(seconds, tela):
         seconds -= 1
         som_contagem.play()
 
-# Obtenha as dimensões originais
-largura_original = IMAGEM_BACKGROUND_ORIGINAL.get_width()
-altura_original = IMAGEM_BACKGROUND_ORIGINAL.get_height()
-fator_escala = 0.5
-# Calculo das novas dimensões
-TELA_LARGURA = int(largura_original * fator_escala)
-TELA_ALTURA = int(altura_original * fator_escala)
-
-# Redimensionando a imagem
-IMAGEM_BACKGROUND = pygame.transform.scale(IMAGEM_BACKGROUND_ORIGINAL, (TELA_LARGURA, TELA_ALTURA))
-
 def load_gif(filename):
     gif = Image.open(filename)
     frames = []
@@ -56,18 +51,18 @@ def load_gif(filename):
         )
         frames.append(pygame.transform.scale2x(pygame_surface))
     return frames
+
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 
 pygame.font.init()
-FONTE_PONTOS = pygame.font.SysFont('arial', 50)
-
+FONTE_PONTOS = pygame.font.SysFont('arial', 40)
 
 class Passaro:
-    IMGS = IMAGENS_CORVO 
-    # animações da rotação
+    IMGS = IMAGENS_CORVO
     ROTACAO_MAXIMA = 25
     VELOCIDADE_ROTACAO = 20
     TEMPO_ANIMACAO = 5
+    TEMPO_INVENCIBILIDADE = 60
 
     def __init__(self, x, y):
         self.x = x
@@ -78,6 +73,8 @@ class Passaro:
         self.tempo = 0
         self.contagem_imagem = 0
         self.imagem = self.IMGS[0]
+        self.invencivel = False
+        self.tempo_invencivel = 0
 
     def pular(self):
         self.velocidade = -10.5
@@ -85,11 +82,9 @@ class Passaro:
         self.altura = self.y
 
     def mover(self):
-        # calcular o deslocamento
         self.tempo += 1
         deslocamento = 1.5 * (self.tempo**2) + self.velocidade * self.tempo
 
-        # restringir o deslocamento
         if deslocamento > 16:
             deslocamento = 16
         elif deslocamento < 0:
@@ -97,7 +92,6 @@ class Passaro:
 
         self.y += deslocamento
 
-        # o angulo do passaro
         if deslocamento < 0 or self.y < (self.altura + 50):
             if self.angulo < self.ROTACAO_MAXIMA:
                 self.angulo = self.ROTACAO_MAXIMA
@@ -105,8 +99,13 @@ class Passaro:
             if self.angulo > -90:
                 self.angulo -= self.VELOCIDADE_ROTACAO
 
+        # Atualiza o tempo de invencibilidade
+        if self.invencivel:
+            self.tempo_invencivel -= 1
+            if self.tempo_invencivel <= 0:
+                self.invencivel = False
+
     def desenhar(self, tela):
-        # definir qual imagem do passaro vai usar
         self.contagem_imagem += 1
 
         if self.contagem_imagem < self.TEMPO_ANIMACAO:
@@ -121,13 +120,10 @@ class Passaro:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
+        # Efeito visual para invencibilidade (pássaro pisca)
+        if self.invencivel and self.tempo_invencivel % 10 < 5:
+            return  # Não desenha o pássaro se estiver no intervalo de "piscar"
 
-        # se o passaro tiver caindo eu não vou bater asa
-        if self.angulo <= -80:
-            self.imagem = self.IMGS[1]
-            self.contagem_imagem = self.TEMPO_ANIMACAO*2
-
-        # desenhar a imagem
         imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
         pos_centro_imagem = self.imagem.get_rect(topleft=(self.x, self.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
@@ -136,9 +132,8 @@ class Passaro:
     def get_mask(self):
         return pygame.mask.from_surface(self.imagem)
 
-
 class Cano:
-    DISTANCIA = 200
+    DISTANCIA = 300
     VELOCIDADE = 5
 
     def __init__(self, x):
@@ -179,7 +174,6 @@ class Cano:
         else:
             return False
 
-
 class Chao:
     VELOCIDADE = 5
     LARGURA = IMAGEM_CHAO.get_width()
@@ -203,36 +197,61 @@ class Chao:
         tela.blit(self.IMAGEM, (self.x1, self.y))
         tela.blit(self.IMAGEM, (self.x2, self.y))
 
-
-def desenhar_tela(tela, passaros, canos, chao, pontos):
+def desenhar_tela(tela, passaros, canos, chao, pontos, vidas):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
+    
     for passaro in passaros:
         passaro.desenhar(tela)
     for cano in canos:
         cano.desenhar(tela)
 
-    texto = FONTE_PONTOS.render(f"Pontuação: {pontos}", 1, (255, 255, 255))
-    tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))
+    if vidas == 3:
+        tela.blit(IMAGEM_VIDA3, (10, 10))
+    elif vidas == 2:
+        tela.blit(IMAGEM_VIDA2, (10, 10))
+    elif vidas == 1:
+        tela.blit(IMAGEM_VIDA1, (10, 10))
+
     chao.desenhar(tela)
+    texto = FONTE_PONTOS.render(f"Pontos: {pontos}", 1, (255, 255, 255))
+    tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))
     pygame.display.update()
+
+def exibir_game_over(tela):
+    tela.blit(IMAGEM_VIDA0,(10,10))
+    tela.blit(IMAGEM_GAME_OVER, (1, 300))
+    pygame.display.update()
+    pygame.time.delay(400) 
+ 
+    # Loop para manter a tela de Game Over até que a tecla de espaço seja pressionada 
+    while True:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+                
+            if evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_SPACE: 
+                    main()
+                    return
 
 
 def main():
-    passaros = [Passaro(TELA_LARGURA // 4, TELA_ALTURA // 2)]
+    passaros = [Passaro(230, 350)]
     chao = Chao(730)
-    canos = [Cano(800)]
+    canos = [Cano(700)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     relogio = pygame.time.Clock()
-    pygame.mixer.music.play(-1)
-    contagem(3, tela)
-    rodando = True
-    pygame.mixer.music.set_volume(0.3)
+    vidas = 3
 
+    contagem(3, tela)
+    pygame.mixer.music.play(-1)
+
+    rodando = True
     while rodando:
         relogio.tick(30)
 
-        # interação com o usuário
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
@@ -242,40 +261,45 @@ def main():
                 if evento.key == pygame.K_SPACE:
                     for passaro in passaros:
                         passaro.pular()
-                        som_pulo.play()
+                    som_pulo.play()
 
-        # mover as coisas
         for passaro in passaros:
             passaro.mover()
-        chao.mover()
+            chao.mover()
 
         adicionar_cano = False
         remover_canos = []
         for cano in canos:
-            for i, passaro in enumerate(passaros):
-                if cano.colidir(passaro):
-                    passaros.pop(i)
-                    pygame.mixer.music.stop()
+            for passaro in passaros:
+                if cano.colidir(passaro) and not passaro.invencivel:
+                    # Som de colisão e perda de vida
                     som_colisão.play()
-                if not cano.passou and passaro.x > cano.x:
+                    vidas -= 1
+                    passaro.invencivel = True  # Passaro fica invencível
+                    passaro.tempo_invencivel = passaro.TEMPO_INVENCIBILIDADE  # Reinicia o tempo de invencibilidade
+
+
+                if not cano.passou and cano.x < passaro.x:
                     cano.passou = True
                     adicionar_cano = True
-            cano.mover()
+                cano.mover()
             if cano.x + cano.CANO_TOPO.get_width() < 0:
                 remover_canos.append(cano)
 
         if adicionar_cano:
             pontos += 1
             canos.append(Cano(600))
+
         for cano in remover_canos:
             canos.remove(cano)
-
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
-                passaros.pop(i)
+                vidas-= 1
+       
+        if vidas == 0:
+            exibir_game_over(tela)
 
-        desenhar_tela(tela, passaros, canos, chao, pontos)
-
+        desenhar_tela(tela, passaros, canos, chao, pontos, vidas)
 
 if __name__ == '__main__':
     main()
