@@ -215,7 +215,19 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
     tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))
     chao.desenhar(tela)
     pygame.display.update()
-
+def contagem(seconds, tela):
+    while seconds >= 0:
+        tela.blit(IMAGEM_BACKGROUND, (0, 0))
+        font = pygame.font.SysFont('arial', 74)
+        if seconds == 0:
+            text = font.render('GO!', True, (255, 255, 255))
+        else:
+            text = font.render(str(seconds), True, (255, 255, 255))
+        tela.blit(text, (TELA_LARGURA // 2 - text.get_width() // 2, TELA_ALTURA // 2 - text.get_height() // 2))
+        pygame.display.flip()
+        time.sleep(1)
+        seconds -= 1
+        som_contagem.play()
 
 def main():
     passaros = [Passaro(TELA_LARGURA // 4, TELA_ALTURA // 2)]
@@ -227,22 +239,35 @@ def main():
     pygame.mixer.music.play(-1)
     contagem(3, tela)
     rodando = True
+    jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.3)
 
     while rodando:
         relogio.tick(30)
 
-        # interação com o usuário
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
                 pygame.quit()
                 quit()
             if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_SPACE:
+                if evento.key == pygame.K_SPACE and not jogo_pausado:
                     for passaro in passaros:
                         passaro.pular()
                         som_pulo.play()
+                if evento.key == pygame.K_p:  # Tecla para pausar/despausar
+                    jogo_pausado = not jogo_pausado
+                    if not jogo_pausado:  # Se despausar, contar 2 segundos
+                        contagem(2, tela)
+
+        if jogo_pausado:
+            # Exibir a mensagem de "PAUSE"
+            font = pygame.font.SysFont('arial', 74)
+            text = font.render('PAUSE', True, (255, 255, 255))
+            tela.blit(IMAGEM_BACKGROUND, (0, 0))
+            tela.blit(text, (TELA_LARGURA // 2 - text.get_width() // 2, TELA_ALTURA // 2 - text.get_height() // 2))
+            pygame.display.flip()
+            continue  # Não faz nenhuma atualização do jogo enquanto pausado
 
         # mover as coisas
         for passaro in passaros:
