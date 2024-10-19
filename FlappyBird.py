@@ -2,24 +2,23 @@ import time
 import pygame
 import os
 import random
-# Alterações Grupo 2
+#Alterações Grupo 2
 # pip install Pillow
 from PIL import Image, ImageSequence
-
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
-IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
-IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
-IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join('imgs', 'background_cemiterio.png'))
+IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join( 'imgs', 'caixao.png')))
+IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join( 'imgs', 'base.jpg')))
+IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load(os.path.join( 'imgs', 'background_cemiterio.png'))
 
-# Alteração grupo 3
+#Alteração grupo 3
 pygame.mixer.init()
 musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
 pygame.mixer.music.set_volume(0.5)
-som_contagem = pygame.mixer.Sound(os.path.join('sons', 'smw_kick.wav'))
+som_contagem = pygame.mixer.Sound(os.path.join('sons','smw_kick.wav'))
 som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
-som_colisão = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-over-233.wav'))
+som_colisão = pygame.mixer.Sound(os.path.join('sons','mixkit-arcade-fast-game-over-233.wav'))
 som_pulo.set_volume(0.2)
 
 def contagem(seconds, tela):
@@ -40,7 +39,7 @@ def contagem(seconds, tela):
 largura_original = IMAGEM_BACKGROUND_ORIGINAL.get_width()
 altura_original = IMAGEM_BACKGROUND_ORIGINAL.get_height()
 fator_escala = 0.5
-# Cálculo das novas dimensões
+# Calculo das novas dimensões
 TELA_LARGURA = int(largura_original * fator_escala)
 TELA_ALTURA = int(altura_original * fator_escala)
 
@@ -57,11 +56,11 @@ def load_gif(filename):
         )
         frames.append(pygame.transform.scale2x(pygame_surface))
     return frames
-
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 50)
+
 
 class Passaro:
     IMGS = IMAGENS_CORVO 
@@ -122,6 +121,7 @@ class Passaro:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
+
         # se o passaro tiver caindo eu não vou bater asa
         if self.angulo <= -80:
             self.imagem = self.IMGS[1]
@@ -136,7 +136,7 @@ class Passaro:
     def get_mask(self):
         return pygame.mask.from_surface(self.imagem)
 
-# Alterações Grupo 5
+
 class Cano:
     DISTANCIA = 200
     VELOCIDADE = 5
@@ -156,9 +156,8 @@ class Cano:
         self.pos_topo = self.altura - self.CANO_TOPO.get_height()
         self.pos_base = self.altura + self.DISTANCIA
 
-    def mover(self, pontos: float = 0):
-        parametro = pontos / 10
-        self.x -= self.VELOCIDADE + parametro
+    def mover(self):
+        self.x -= self.VELOCIDADE
 
     def desenhar(self, tela):
         tela.blit(self.CANO_TOPO, (self.x, self.pos_topo))
@@ -179,6 +178,7 @@ class Cano:
             return True
         else:
             return False
+
 
 class Chao:
     VELOCIDADE = 5
@@ -203,6 +203,7 @@ class Chao:
         tela.blit(self.IMAGEM, (self.x1, self.y))
         tela.blit(self.IMAGEM, (self.x2, self.y))
 
+
 def desenhar_tela(tela, passaros, canos, chao, pontos):
     tela.blit(IMAGEM_BACKGROUND, (0, 0))
     for passaro in passaros:
@@ -215,67 +216,66 @@ def desenhar_tela(tela, passaros, canos, chao, pontos):
     chao.desenhar(tela)
     pygame.display.update()
 
-def jogo():
-    passaros = [Passaro(230, 350)]
+
+def main():
+    passaros = [Passaro(TELA_LARGURA // 4, TELA_ALTURA // 2)]
     chao = Chao(730)
-    canos = [Cano(600)]
+    canos = [Cano(800)]
+    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
-    clock = pygame.time.Clock()
-    rodando = True
-    contagem(3, tela)
+    relogio = pygame.time.Clock()
     pygame.mixer.music.play(-1)
+    contagem(3, tela)
+    rodando = True
+    pygame.mixer.music.set_volume(0.3)
 
     while rodando:
-        clock.tick(30)
-        chao.mover()
+        relogio.tick(30)
 
+        # interação com o usuário
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 rodando = False
-                break
+                pygame.quit()
+                quit()
             if evento.type == pygame.KEYDOWN:
                 if evento.key == pygame.K_SPACE:
-                    passaros[0].pular()
-                    som_pulo.play()
+                    for passaro in passaros:
+                        passaro.pular()
+                        som_pulo.play()
 
-        add_cano = False
-        remove_canos = []
+        # mover as coisas
+        for passaro in passaros:
+            passaro.mover()
+        chao.mover()
 
+        adicionar_cano = False
+        remover_canos = []
         for cano in canos:
-            cano.mover(pontos)
+            for i, passaro in enumerate(passaros):
+                if cano.colidir(passaro):
+                    passaros.pop(i)
+                    pygame.mixer.music.stop()
+                    som_colisão.play()
+                if not cano.passou and passaro.x > cano.x:
+                    cano.passou = True
+                    adicionar_cano = True
+            cano.mover()
             if cano.x + cano.CANO_TOPO.get_width() < 0:
-                remove_canos.append(cano)
+                remover_canos.append(cano)
 
-            if not cano.passou and cano.x < passaros[0].x:
-                cano.passou = True
-                add_cano = True
-
-            if cano.colidir(passaros[0]):
-                som_colisão.play()
-                rodando = False
-                break
-
-        if add_cano:
+        if adicionar_cano:
             pontos += 1
             canos.append(Cano(600))
-
-        for cano in remove_canos:
+        for cano in remover_canos:
             canos.remove(cano)
 
         for i, passaro in enumerate(passaros):
-            passaro.mover()
-
-            if passaro.y + passaro.imagem.get_height() >= 730:
-                rodando = False
-                break
+            if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
+                passaros.pop(i)
 
         desenhar_tela(tela, passaros, canos, chao, pontos)
 
-    pygame.mixer.music.stop()
-    pygame.quit()
 
 if __name__ == '__main__':
-    pygame.init()
-    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
-    pygame.display.set_caption('Flappy Bird')
-    jogo()
+    main()
