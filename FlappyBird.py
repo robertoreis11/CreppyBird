@@ -272,7 +272,7 @@ def contagem(seconds, tela):
 
 def main():
     passaros = [Passaro(230, 350)]
-    chao = Chao(730)
+    chao = Chao(700)
     canos = [Cano(700)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
