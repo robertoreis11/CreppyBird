@@ -17,7 +17,8 @@ IMAGEM_VIDA1 = pygame.image.load(os.path.join('imgs', 'vida1.png'))
 IMAGEM_VIDA2 = pygame.image.load(os.path.join('imgs', 'vida2.png'))
 IMAGEM_VIDA3 = pygame.image.load(os.path.join('imgs', 'vida3.png'))
 IMAGEM_GAME_OVER = pygame.image.load(os.path.join('imgs', 'gameover.png'))
-IMAGEM_PONTUACAO = pygame.image.load(os.path.join('imgs', 'pontuação-img.png'))
+IMAGEM_PONTUACAO = pygame.image.load(os.path.join('imgs', 'pontuacao2.png'))
+IMAGEM_MENOR_PONTUACAO = pygame.transform.scale(IMAGEM_PONTUACAO, (180, 35))
 
 # Alteração Grupo 3
 pygame.mixer.init()
@@ -57,7 +58,7 @@ IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 
 pygame.font.init()
 FONTE_PONTOS = pygame.font.SysFont('arial', 40)
-FONTE_PONTOS_FINAIS = pygame.font.SysFont('arial', 50)
+FONTE_PONTOS_FINAIS = pygame.font.SysFont('arial', 65)
 
 class Passaro:
     IMGS = IMAGENS_CORVO
@@ -223,13 +224,19 @@ def exibir_game_over(tela, pontos):
     tela.blit(IMAGEM_VIDA0,(10,10))
     tela.blit(IMAGEM_GAME_OVER, (1, 300))
 
-    tela.blit(IMAGEM_PONTUACAO, (-90, 250))
+    tela.blit(IMAGEM_MENOR_PONTUACAO, (150, 400))
 
-    pontuacao = FONTE_PONTOS_FINAIS.render(f"{pontos}", 1, (0, 0, 0))
-    tela.blit(pontuacao, (230, 450))
+    pontuacao = FONTE_PONTOS_FINAIS.render(f"{pontos}", 1, (255, 255, 255))
+    tela.blit(pontuacao, (230, 437))
 
-    texto_reiniciar = FONTE_PONTOS.render("Pressione espaço para reiniciar", True, (255, 255, 255))
-    tela.blit(texto_reiniciar, (20, 550))
+    y = 590
+    x = 110
+    texto_reiniciar = ['Pressione espaço','para continuar']
+    for linha in texto_reiniciar:
+        texto_reiniciar = FONTE_PONTOS.render(linha, True, (255, 255, 255))
+        tela.blit(texto_reiniciar, (x, y))
+        y += 40
+        x += 30
 
     pygame.display.update()
     pygame.time.delay(400) 
