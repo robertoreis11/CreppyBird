@@ -351,9 +351,8 @@ def main():
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 vidas-= 1
-
-        pygame.mixer.music.stop()
-        som_gameOver.play()
+                pygame.mixer.music.stop()
+                som_gameOver.play()
        
         if vidas == 0:
             exibir_game_over(tela, pontos)
