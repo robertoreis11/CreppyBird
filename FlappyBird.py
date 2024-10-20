@@ -19,6 +19,8 @@ IMAGEM_VIDA3 = pygame.image.load(os.path.join('imgs', 'vida3.png'))
 IMAGEM_GAME_OVER = pygame.image.load(os.path.join('imgs', 'gameover.png'))
 IMAGEM_PONTUACAO = pygame.image.load(os.path.join('imgs', 'pontuacao2.png'))
 IMAGEM_MENOR_PONTUACAO = pygame.transform.scale(IMAGEM_PONTUACAO, (180, 35))
+IMAGEM_RECORDE = pygame.image.load(os.path.join('imgs', 'recorde-img.png'))
+IMAGEM_MENOR_RECORDE = pygame.transform.scale(IMAGEM_RECORDE, (180, 35))
 
 # Alteração Grupo 3
 pygame.mixer.init()
@@ -220,38 +222,50 @@ def desenhar_tela(tela, passaros, canos, chao, pontos, vidas):
     tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))
     pygame.display.update()
 
-def exibir_game_over(tela, pontos):
-    tela.blit(IMAGEM_VIDA0,(10,10))
-    tela.blit(IMAGEM_GAME_OVER, (1, 300))
+#equipe 4
 
-    tela.blit(IMAGEM_MENOR_PONTUACAO, (150, 400))
+recorde = 0
+class bater:
+    def mostrar_recorde(pontos, tela):
+        global recorde
+        if pontos > recorde:
+            recorde = pontos
 
-    pontuacao = FONTE_PONTOS_FINAIS.render(f"{pontos}", 1, (255, 255, 255))
-    tela.blit(pontuacao, (230, 437))
+        tela.blit(IMAGEM_MENOR_RECORDE, (155, 490))
+        pontuacao_recorde = FONTE_PONTOS_FINAIS.render(f"{recorde}", 1, (255, 255, 255))
+        tela.blit(pontuacao_recorde, (230, 529))
 
-    y = 590
-    x = 110
-    texto_reiniciar = ['Pressione espaço','para continuar']
-    for linha in texto_reiniciar:
-        texto_reiniciar = FONTE_PONTOS.render(linha, True, (255, 255, 255))
-        tela.blit(texto_reiniciar, (x, y))
-        y += 40
-        x += 30
+    def exibir_game_over(tela, pontos):
+        tela.blit(IMAGEM_VIDA0,(10,10))
+        tela.blit(IMAGEM_GAME_OVER, (1, 220))
+        tela.blit(IMAGEM_MENOR_PONTUACAO, (150, 350))
 
-    pygame.display.update()
-    pygame.time.delay(400) 
- 
-    # Loop para manter a tela de Game Over até que a tecla de espaço seja pressionada 
-    while True:
-        for evento in pygame.event.get():
-            if evento.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-                
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_SPACE: 
-                    main()
-                    return
+        pontuacao = FONTE_PONTOS_FINAIS.render(f"{pontos}", 1, (255, 255, 255))
+        tela.blit(pontuacao, (230, 388))
+
+        y = 620
+        x = 110
+        texto_reiniciar = ['Pressione espaço','para reiniciar']
+        for linha in texto_reiniciar:
+            texto_reiniciar = FONTE_PONTOS.render(linha, True, (255, 255, 255))
+            tela.blit(texto_reiniciar, (x, y))
+            y += 40
+            x += 30
+
+        pygame.display.update()
+        pygame.time.delay(400) 
+    
+        # Loop para manter a tela de Game Over até que a tecla de espaço seja pressionada 
+        while True:
+            for evento in pygame.event.get():
+                if evento.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                    
+                if evento.type == pygame.KEYDOWN:
+                    if evento.key == pygame.K_SPACE: 
+                        main()
+                        return
 
 def contagem(seconds, tela):
     while seconds >= 0:
@@ -281,7 +295,7 @@ def main():
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.3)
 
-    contagem(3, tela)
+    # contagem(3, tela)
     pygame.mixer.music.play(-1)
 
     rodando = True
@@ -344,9 +358,10 @@ def main():
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 vidas-= 1
-       
+
         if vidas == 0:
-            exibir_game_over(tela, pontos)
+            bater.mostrar_recorde(pontos, tela)
+            bater.exibir_game_over(tela, pontos)
 
         desenhar_tela(tela, passaros, canos, chao, pontos, vidas)
 
