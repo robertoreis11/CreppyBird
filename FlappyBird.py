@@ -338,15 +338,22 @@ def main():
             if cano.x + cano.CANO_TOPO.get_width() < 0:
                 remover_canos.append(cano)
 
+# Alteração Grupo 5
         if adicionar_cano:
-            pontos += 1
+            pontos += 5 # A pontuação aumenta de 5 em cinco
             canos.append(Cano(600))
+            
+            if pontos % 50 == 0:  # Aumenta a velocidade a cada 50 pontos
+                Cano.VELOCIDADE += 3 # Velocidade aumentada em 3 a cada 50 pontos dados
 
         for cano in remover_canos:
             canos.remove(cano)
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 vidas-= 1
+
+        pygame.mixer.music.stop()
+        som_gameOver.play()
        
         if vidas == 0:
             exibir_game_over(tela, pontos)
