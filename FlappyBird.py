@@ -279,12 +279,107 @@ def main():
     relogio = pygame.time.Clock()
     vidas = 3
     pygame.mixer.music.play(-1)
-    contagem(3, tela)
-    rodando = True
+ 
+    rodando = False
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
+     
+    #// alteraçôes Grupo 1 
+    #imagem de fundo da tela inicial
+    imagem_fundo_tela = pygame.image.load('./imgs/background_inicial.png')
+    imagem_fundo_tela_re = pygame.transform.scale(imagem_fundo_tela, (TELA_LARGURA, TELA_ALTURA))
 
-    rodando = True
+    #Adicionando música de fundo
+    pygame.mixer.init()
+    musica_de_fundo_do_jogo = pygame.mixer.Sound('./sons/StockTune-Creepy Crawly Capers_1729035356.mp3')
+    musica_de_fundo_do_jogo.play(-1)
+    volume_inicio = 0.1
+    musica_de_fundo_do_jogo.set_volume(volume_inicio)
+    
+    #configuraçôes da barra de progresso
+    progresso_barra = 20
+    largura_barra = 200
+    tela_inicio = True
+
+    while tela_inicio:
+        #adicionando tela de fundo
+        tela.blit(imagem_fundo_tela_re, (0,0))
+
+      
+        #adicionando butao de play
+        botao_play_img = pygame.image.load('./imgs/botão_play_.png')
+        botao_play_re =pygame.transform.scale(botao_play_img, (150,100))
+        botao_play_posicao =botao_play_re.get_rect(center=(250,370))
+        tela.blit(botao_play_re, botao_play_posicao)
+
+
+        #adicionando botão quit
+        botao_quit_img = pygame.image.load('./imgs/botão_exit_.png')
+        botao_quit_re =pygame.transform.scale(botao_quit_img, (150,100))
+        botao_quit_posicao =botao_quit_re.get_rect(center=(250,490))
+        tela.blit(botao_quit_re, botao_quit_posicao)
+
+        #definindo botao de aumentar volume
+        botao_volume_mais = pygame.image.load('./imgs/botao_volume_positivo.png')
+        botao_volume_mais_re = pygame.transform.scale(botao_volume_mais, (50,50))
+        botao_volume_mias_posi =botao_volume_mais_re.get_rect(center=(260,700))
+        tela.blit(botao_volume_mais_re,botao_volume_mias_posi)
+
+        #definindo botao de diminuir volume
+        botao_volume_menos = pygame.image.load('./imgs/botao_volume_negativo.png')
+        botao_volume_menos_re = pygame.transform.scale(botao_volume_menos, (50,50))
+        botao_volume_menos_posi = botao_volume_menos_re.get_rect(center=(20, 700))
+        tela.blit(botao_volume_menos_re, botao_volume_menos_posi)
+
+        # definindo barra de volume
+        barra_volume = pygame.draw.rect(tela, (255,255,255), (40,690, largura_barra, 20))
+        pygame.draw.rect(tela, (153,204,50), (40,690, progresso_barra, 20))
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                tela_inicio = False
+                pygame.quit()
+                quit()
+            #evento de click do botao play
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_play_posicao.collidepoint(evento.pos):
+                    musica_de_fundo_do_jogo.stop()
+                    tela_inicio = False
+                    contagem(3, tela)
+                    rodando = True
+
+            #evento de click do botão quit
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_quit_posicao.collidepoint(evento.pos):
+                    tela_inicio = False
+                    rodando = False
+           
+
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_volume_mias_posi.collidepoint(pygame.mouse.get_pos()):
+                    if volume_inicio < 1:
+                        volume_inicio += 0.10
+                        musica_de_fundo_do_jogo.set_volume(volume_inicio)
+                        
+                        if progresso_barra < largura_barra:
+                            progresso_barra += 20
+                            pygame.time.delay(1)
+
+                if botao_volume_menos_posi.collidepoint(pygame.mouse.get_pos()):
+                    if volume_inicio > 0:
+                        volume_inicio -= 0.10
+                        musica_de_fundo_do_jogo.set_volume(volume_inicio)
+
+                        if progresso_barra > 0:      
+                            progresso_barra -= 20
+                            pygame.time.delay(1)
+
+                        elif progresso_barra == 0:
+                            volume_inicio = 0.0
+
+
+            pygame.display.update()
+    
     while rodando:
         relogio.tick(30)
 
