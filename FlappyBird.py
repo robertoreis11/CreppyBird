@@ -23,11 +23,14 @@ IMAGEM_MENOR_PONTUACAO = pygame.transform.scale(IMAGEM_PONTUACAO, (180, 35))
 # Alteração Grupo 3
 pygame.mixer.init()
 musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 som_contagem = pygame.mixer.Sound(os.path.join('sons', 'smw_kick.wav'))
 som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
 som_colisão = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-over-233.wav'))
+som_gameOver = pygame.mixer.Sound(os.path.join('sons', 'mixkit-evil-dwarf-laugh-421.wav'))
 som_pulo.set_volume(0.2)
+som_colisão.set_volume(0.3)
+som_gameOver.set_volume(0.8)
 
 def contagem(seconds, tela):
     while seconds >= 0:
@@ -279,10 +282,7 @@ def main():
     contagem(3, tela)
     rodando = True
     jogo_pausado = False  # Variável para controlar o estado de pausa
-    pygame.mixer.music.set_volume(0.3)
-
-    contagem(3, tela)
-    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.5)
 
     rodando = True
     while rodando:
@@ -324,6 +324,9 @@ def main():
                     # Som de colisão e perda de vida
                     som_colisão.play()
                     vidas -= 1
+                    if vidas == 0:
+                        pygame.mixer.music.stop()
+                        som_gameOver.play()
                     passaro.invencivel = True  # Passaro fica invencível
                     passaro.tempo_invencivel = passaro.TEMPO_INVENCIBILIDADE  # Reinicia o tempo de invencibilidade
 
