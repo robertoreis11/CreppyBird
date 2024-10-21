@@ -8,7 +8,7 @@ from PIL import Image, ImageSequence
 
 TELA_LARGURA = 500
 TELA_ALTURA = 800
-
+IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
@@ -149,20 +149,21 @@ class Passaro:
 class Cano:
     DISTANCIA = 300
     VELOCIDADE = 5
+    AJUSTE_ALTURA = 50  # Novo: ajuste para baixar a posição da aranha
 
     def __init__(self, x):
         self.x = x
         self.altura = 0
         self.pos_topo = 0
         self.pos_base = 0
-        self.CANO_TOPO = pygame.transform.flip(IMAGEM_CANO, False, True)
+        self.CANO_TOPO = IMAGEM_ARANHA
         self.CANO_BASE = IMAGEM_CANO
         self.passou = False
         self.definir_altura()
 
     def definir_altura(self):
         self.altura = random.randrange(50, 400)
-        self.pos_topo = self.altura - self.CANO_TOPO.get_height()
+        self.pos_topo = self.altura - self.CANO_TOPO.get_height() + self.AJUSTE_ALTURA  # Modificado: adicionado AJUSTE_ALTURA
         self.pos_base = self.altura + self.DISTANCIA
 
     def mover(self):
