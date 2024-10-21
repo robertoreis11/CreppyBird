@@ -290,10 +290,8 @@ def tela_inicial():
 
     while tela_inicio:
         #adicionando tela de fundo
-        
         tela2.blit(imagem_fundo_tela_re, (0,0))
-
-      
+        
         #adicionando butao de play
         botao_play_img = pygame.image.load('./imgs/botão_play_.png')
         botao_play_re =pygame.transform.scale(botao_play_img, (150,100))
@@ -342,8 +340,9 @@ def tela_inicial():
                     tela_inicio = False
                     rodando = False
            
-
+           
             if evento.type == pygame.MOUSEBUTTONDOWN:
+                # evento do botão de aumentar volume
                 if botao_volume_mias_posi.collidepoint(pygame.mouse.get_pos()):
                     if volume_inicio < 1:
                         volume_inicio += 0.10
@@ -352,7 +351,7 @@ def tela_inicial():
                         if progresso_barra < largura_barra:
                             progresso_barra += 20
                             pygame.time.delay(1)
-
+                # evento do botão de biaxar volume
                 if botao_volume_menos_posi.collidepoint(pygame.mouse.get_pos()):
                     if volume_inicio > 0:
                         volume_inicio -= 0.10
