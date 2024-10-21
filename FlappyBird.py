@@ -119,6 +119,11 @@ class Passaro:
             if self.tempo_invencivel <= 0:
                 self.invencivel = False
 
+    def reiniciar_velocidade(self):
+        self.velocidade = 0  # Reinicia a velocidade do pássaro
+        self.tempo = 0  # Reinicia o tempo
+        self.altura = self.y  # Reinicia a altura
+
     def desenhar(self, tela):
         self.contagem_imagem += 1
 
@@ -306,6 +311,8 @@ def main():
     rodando = False
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
+
+    Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
      
     #// alteraçôes Grupo 1 
     #imagem de fundo da tela inicial
