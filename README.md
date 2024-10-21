@@ -86,7 +86,8 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 │   └── mixkit-arcade-fast.wav      # Som da colisão
 │
 ├── FlappyBird.py                   # Código do jogo e configurações
-└── README.md                       # Documentação
+├── README.md                       # Documentação
+└── requirements.txt                # Bibliotecas utilizadas no projeto
 </code></pre>
 
 <hr></hr>
