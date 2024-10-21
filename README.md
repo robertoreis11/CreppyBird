@@ -102,23 +102,27 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
         <li>O personagem principal é um corvo sombrio que precisa voar por entre obstáculos místicos de Halloween.</li>
         <li>Ele é controlado pelo jogador e se move para frente automaticamente, com a gravidade puxando-o para baixo. Cada vez que o jogador pressiona a tecla Espaço, o corvo bate asas e sobe.</li>
     </ul>
+    <br></br>
     <font size="4"><b>Obstáculos de Halloween</b></font>
     <br></br>
     <ul>
         <li><b>Caixões:</b> Aparecem de forma similar aos canos do Flappy Bird, como obstáculos verticais que devem ser evitados.</li>
         <li><b>Aranhas:</b> Surgem caindo do céu, evite-as para não perder seus corações de vida.</li>
     </ul>
+    <br></br>
     <font size="4"><b>Cenário Sinistro</b></font>
     <br></br>
     <ul>
         <li>O fundo do jogo é composto por um céu escuro e lua cheia.</li>
     </ul>
+    <br></br>
     <font size="4"><b>Efeitos Sonoros</b></font>
     <br></br>
     <ul>
         <li>Sons arrepiantes, como risadas macabras criam uma experiência imersiva.</li>
         <li>Efeitos sonoros para colisão e pontos também estão incluídos.</li>
     </ul>
+    <br></br>
     <font size="4"><b>Pontuação</b></font>
     <br></br>
     <ul>
