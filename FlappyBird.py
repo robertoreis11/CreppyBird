@@ -25,11 +25,14 @@ IMAGEM_MENOR_RECORDE = pygame.transform.scale(IMAGEM_RECORDE, (180, 35))
 # Alteração Grupo 3
 pygame.mixer.init()
 musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.3)
 som_contagem = pygame.mixer.Sound(os.path.join('sons', 'smw_kick.wav'))
 som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
 som_colisão = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-over-233.wav'))
+som_gameOver = pygame.mixer.Sound(os.path.join('sons', 'mixkit-evil-dwarf-laugh-421.wav'))
 som_pulo.set_volume(0.2)
+som_colisão.set_volume(0.3)
+som_gameOver.set_volume(0.8)
 
 def contagem(seconds, tela):
     while seconds >= 0:
@@ -283,22 +286,114 @@ def contagem(seconds, tela):
 
 def main():
     passaros = [Passaro(230, 350)]
-    chao = Chao(730)
+    chao = Chao(700)
     canos = [Cano(700)]
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     relogio = pygame.time.Clock()
     vidas = 3
     pygame.mixer.music.play(-1)
-    contagem(3, tela)
-    rodando = True
+ 
+    rodando = False
     jogo_pausado = False  # Variável para controlar o estado de pausa
-    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.set_volume(0.5)
+     
+    #// alteraçôes Grupo 1 
+    #imagem de fundo da tela inicial
+    imagem_fundo_tela = pygame.image.load('./imgs/background_inicial.png')
+    imagem_fundo_tela_re = pygame.transform.scale(imagem_fundo_tela, (TELA_LARGURA, TELA_ALTURA))
 
-    # contagem(3, tela)
-    pygame.mixer.music.play(-1)
+    #Adicionando música de fundo
+    pygame.mixer.init()
+    musica_de_fundo_do_jogo = pygame.mixer.Sound('./sons/StockTune-Creepy Crawly Capers_1729035356.mp3')
+    musica_de_fundo_do_jogo.play(-1)
+    volume_inicio = 0.1
+    musica_de_fundo_do_jogo.set_volume(volume_inicio)
+    
+    #configuraçôes da barra de progresso
+    progresso_barra = 20
+    largura_barra = 200
+    tela_inicio = True
 
-    rodando = True
+    while tela_inicio:
+        #adicionando tela de fundo
+        tela.blit(imagem_fundo_tela_re, (0,0))
+
+      
+        #adicionando butao de play
+        botao_play_img = pygame.image.load('./imgs/botão_play_.png')
+        botao_play_re =pygame.transform.scale(botao_play_img, (150,100))
+        botao_play_posicao =botao_play_re.get_rect(center=(250,370))
+        tela.blit(botao_play_re, botao_play_posicao)
+
+
+        #adicionando botão quit
+        botao_quit_img = pygame.image.load('./imgs/botão_exit_.png')
+        botao_quit_re =pygame.transform.scale(botao_quit_img, (150,100))
+        botao_quit_posicao =botao_quit_re.get_rect(center=(250,490))
+        tela.blit(botao_quit_re, botao_quit_posicao)
+
+        #definindo botao de aumentar volume
+        botao_volume_mais = pygame.image.load('./imgs/botao_volume_positivo.png')
+        botao_volume_mais_re = pygame.transform.scale(botao_volume_mais, (50,50))
+        botao_volume_mias_posi =botao_volume_mais_re.get_rect(center=(260,700))
+        tela.blit(botao_volume_mais_re,botao_volume_mias_posi)
+
+        #definindo botao de diminuir volume
+        botao_volume_menos = pygame.image.load('./imgs/botao_volume_negativo.png')
+        botao_volume_menos_re = pygame.transform.scale(botao_volume_menos, (50,50))
+        botao_volume_menos_posi = botao_volume_menos_re.get_rect(center=(20, 700))
+        tela.blit(botao_volume_menos_re, botao_volume_menos_posi)
+
+        # definindo barra de volume
+        barra_volume = pygame.draw.rect(tela, (255,255,255), (40,690, largura_barra, 20))
+        pygame.draw.rect(tela, (153,204,50), (40,690, progresso_barra, 20))
+
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                tela_inicio = False
+                pygame.quit()
+                quit()
+            #evento de click do botao play
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_play_posicao.collidepoint(evento.pos):
+                    musica_de_fundo_do_jogo.stop()
+                    tela_inicio = False
+                    # contagem(3, tela)
+                    rodando = True
+
+            #evento de click do botão quit
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_quit_posicao.collidepoint(evento.pos):
+                    tela_inicio = False
+                    rodando = False
+           
+
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if botao_volume_mias_posi.collidepoint(pygame.mouse.get_pos()):
+                    if volume_inicio < 1:
+                        volume_inicio += 0.10
+                        musica_de_fundo_do_jogo.set_volume(volume_inicio)
+                        
+                        if progresso_barra < largura_barra:
+                            progresso_barra += 20
+                            pygame.time.delay(1)
+
+                if botao_volume_menos_posi.collidepoint(pygame.mouse.get_pos()):
+                    if volume_inicio > 0:
+                        volume_inicio -= 0.10
+                        musica_de_fundo_do_jogo.set_volume(volume_inicio)
+
+                        if progresso_barra > 0:      
+                            progresso_barra -= 20
+                            pygame.time.delay(1)
+
+                        elif progresso_barra == 0:
+                            volume_inicio = 0.0
+
+
+            pygame.display.update()
+    
     while rodando:
         relogio.tick(30)
 
@@ -338,6 +433,9 @@ def main():
                     # Som de colisão e perda de vida
                     som_colisão.play()
                     vidas -= 1
+                    if vidas == 0:
+                        pygame.mixer.music.stop()
+                        som_gameOver.play()
                     passaro.invencivel = True  # Passaro fica invencível
                     passaro.tempo_invencivel = passaro.TEMPO_INVENCIBILIDADE  # Reinicia o tempo de invencibilidade
 
@@ -349,15 +447,21 @@ def main():
             if cano.x + cano.CANO_TOPO.get_width() < 0:
                 remover_canos.append(cano)
 
+# Alteração Grupo 5
         if adicionar_cano:
-            pontos += 1
+            pontos += 5 # A pontuação aumenta de 5 em cinco
             canos.append(Cano(600))
+            
+            if pontos % 50 == 0:  # Aumenta a velocidade a cada 50 pontos
+                Cano.VELOCIDADE += 3 # Velocidade aumentada em 3 a cada 50 pontos dados
 
         for cano in remover_canos:
             canos.remove(cano)
         for i, passaro in enumerate(passaros):
             if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
                 vidas-= 1
+                pygame.mixer.music.stop()
+                som_gameOver.play()
 
         if vidas == 0:
             bater.mostrar_recorde(pontos, tela)
