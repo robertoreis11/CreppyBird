@@ -43,6 +43,10 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
     <pre><code>python --version</code></pre>
     <pre><code>pip install pygame</code></pre>
     <pre><code>pip install pillow</code></pre>
+    <br>
+    <font size="4"><b>Ou</b></font>
+    <br></br>
+    <pre><code>pip install -r requirements.txt</code></pre>
 </ul>
 
 <hr></hr>
