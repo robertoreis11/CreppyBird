@@ -26,6 +26,7 @@ IMAGEM_MENOR_RECORDE = pygame.transform.scale(IMAGEM_RECORDE, (180, 35))
 pygame.mixer.init()
 musica_de_fundo = pygame.mixer.music.load(os.path.join('sons', 'this-is-halloween-172354.mp3'))
 pygame.mixer.music.set_volume(0.3)
+musica_de_fundo_do_jogo = pygame.mixer.Sound('./sons/StockTune-Creepy Crawly Capers_1729035356.mp3')
 som_contagem = pygame.mixer.Sound(os.path.join('sons', 'smw_kick.wav'))
 som_pulo = pygame.mixer.Sound(os.path.join('sons', 'mixkit-player-jumping-in-a-video-game-2043.wav'))
 som_colisão = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-over-233.wav'))
@@ -300,7 +301,7 @@ def main():
     pontos = 0
     relogio = pygame.time.Clock()
     vidas = 3
-    pygame.mixer.music.play(-1)
+    musica_de_fundo_do_jogo.play(-1)
  
     rodando = False
     jogo_pausado = False  # Variável para controlar o estado de pausa
@@ -313,8 +314,7 @@ def main():
 
     #Adicionando música de fundo
     pygame.mixer.init()
-    musica_de_fundo_do_jogo = pygame.mixer.Sound('./sons/StockTune-Creepy Crawly Capers_1729035356.mp3')
-    musica_de_fundo_do_jogo.play(-1)
+
     volume_inicio = 0.1
     musica_de_fundo_do_jogo.set_volume(volume_inicio)
     
@@ -367,8 +367,9 @@ def main():
                 if botao_play_posicao.collidepoint(evento.pos):
                     musica_de_fundo_do_jogo.stop()
                     tela_inicio = False
-                    # contagem(3, tela)
+                    contagem(3, tela)
                     rodando = True
+                    pygame.mixer.music.play(-1)
 
             #evento de click do botão quit
             if evento.type == pygame.MOUSEBUTTONDOWN:
@@ -403,7 +404,7 @@ def main():
             pygame.display.update()
     
     while rodando:
-        relogio.tick(30)
+        relogio.tick(30)       
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
