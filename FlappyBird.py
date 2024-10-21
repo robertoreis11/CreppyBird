@@ -269,22 +269,9 @@ def contagem(seconds, tela):
         time.sleep(1)
         seconds -= 1
         som_contagem.play()
-
-def main():
-    passaros = [Passaro(230, 350)]
-    chao = Chao(700)
-    canos = [Cano(700)]
-    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
-    pontos = 0
-    relogio = pygame.time.Clock()
-    vidas = 3
-    pygame.mixer.music.play(-1)
- 
-    rodando = False
-    jogo_pausado = False  # Variável para controlar o estado de pausa
-    pygame.mixer.music.set_volume(0.5)
-     
-    #// alteraçôes Grupo 1 
+def tela_inicial():
+    tela2 = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
+      #// alteraçôes Grupo 1 
     #imagem de fundo da tela inicial
     imagem_fundo_tela = pygame.image.load('./imgs/background_inicial.png')
     imagem_fundo_tela_re = pygame.transform.scale(imagem_fundo_tela, (TELA_LARGURA, TELA_ALTURA))
@@ -303,37 +290,38 @@ def main():
 
     while tela_inicio:
         #adicionando tela de fundo
-        tela.blit(imagem_fundo_tela_re, (0,0))
+        
+        tela2.blit(imagem_fundo_tela_re, (0,0))
 
       
         #adicionando butao de play
         botao_play_img = pygame.image.load('./imgs/botão_play_.png')
         botao_play_re =pygame.transform.scale(botao_play_img, (150,100))
         botao_play_posicao =botao_play_re.get_rect(center=(250,370))
-        tela.blit(botao_play_re, botao_play_posicao)
+        tela2.blit(botao_play_re, botao_play_posicao)
 
 
         #adicionando botão quit
         botao_quit_img = pygame.image.load('./imgs/botão_exit_.png')
         botao_quit_re =pygame.transform.scale(botao_quit_img, (150,100))
         botao_quit_posicao =botao_quit_re.get_rect(center=(250,490))
-        tela.blit(botao_quit_re, botao_quit_posicao)
+        tela2.blit(botao_quit_re, botao_quit_posicao)
 
         #definindo botao de aumentar volume
         botao_volume_mais = pygame.image.load('./imgs/botao_volume_positivo.png')
         botao_volume_mais_re = pygame.transform.scale(botao_volume_mais, (50,50))
         botao_volume_mias_posi =botao_volume_mais_re.get_rect(center=(260,700))
-        tela.blit(botao_volume_mais_re,botao_volume_mias_posi)
+        tela2.blit(botao_volume_mais_re,botao_volume_mias_posi)
 
         #definindo botao de diminuir volume
         botao_volume_menos = pygame.image.load('./imgs/botao_volume_negativo.png')
         botao_volume_menos_re = pygame.transform.scale(botao_volume_menos, (50,50))
         botao_volume_menos_posi = botao_volume_menos_re.get_rect(center=(20, 700))
-        tela.blit(botao_volume_menos_re, botao_volume_menos_posi)
+        tela2.blit(botao_volume_menos_re, botao_volume_menos_posi)
 
         # definindo barra de volume
-        barra_volume = pygame.draw.rect(tela, (255,255,255), (40,690, largura_barra, 20))
-        pygame.draw.rect(tela, (153,204,50), (40,690, progresso_barra, 20))
+        barra_volume = pygame.draw.rect(tela2, (255,255,255), (40,690, largura_barra, 20))
+        pygame.draw.rect(tela2, (153,204,50), (40,690, progresso_barra, 20))
 
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -345,8 +333,8 @@ def main():
                 if botao_play_posicao.collidepoint(evento.pos):
                     musica_de_fundo_do_jogo.stop()
                     tela_inicio = False
-                    contagem(3, tela)
-                    rodando = True
+                    contagem(3, tela2)
+                    main()
 
             #evento de click do botão quit
             if evento.type == pygame.MOUSEBUTTONDOWN:
@@ -379,7 +367,23 @@ def main():
 
 
             pygame.display.update()
+
+def main():
+    passaros = [Passaro(230, 350)]
+    chao = Chao(700)
+    canos = [Cano(700)]
     
+    tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
+    pontos = 0
+    relogio = pygame.time.Clock()
+    vidas = 3
+    pygame.mixer.music.play(-1)
+ 
+    rodando = True
+    jogo_pausado = False  # Variável para controlar o estado de pausa
+    pygame.mixer.music.set_volume(0.5)
+     
+  
     while rodando:
         relogio.tick(30)
 
@@ -455,4 +459,4 @@ def main():
         desenhar_tela(tela, passaros, canos, chao, pontos, vidas)
 
 if __name__ == '__main__':
-    main()
+    tela_inicial()
