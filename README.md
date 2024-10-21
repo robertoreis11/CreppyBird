@@ -1,6 +1,6 @@
-<font size="8"><b>CreepyBird - Halloween Edition 🪦</b></font>
+# CreepyBird - Halloween Edition 🪦
 
-<font size="5"><b>Visão geral</b></font>
+## Visão geral
 
 <b>CreepyBird</b> é uma recriação do clássico Flappy Bird, mas com um toque assustador! Em vez de guiar um pássaro alegre através de canos, você controla um corvo sombrio voando através de um cemitério cheio de lápides e árvores mortas. O desafio permanece o mesmo: sobreviver o máximo possível sem colidir com os obstáculos. No entanto, agora o ambiente está repleto de sombras, sons arrepiantes e uma atmosfera sombria que vai te deixar no clima de Halloween!
 
@@ -9,7 +9,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>🎮 Funcionalidades</b></font>
+## 🎮 Funcionalidades
 
 <ul>
     <li><b>Personagem Principal</b>: Um corvo sombrio, com asas batendo em um cenário assustador.</li>
@@ -24,7 +24,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>🧛‍♂️ Requisitos</b></font>
+## 🧛‍♂️ Requisitos
 
 <ul>
     <li><b>Python:</b> 3.7 ou superior</li>
@@ -48,7 +48,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>🎃 Como Jogar</b></font>
+## 🎃 Como Jogar
 
 
 <ol>
@@ -68,7 +68,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>👻 Estrutura do Projeto</b></font>
+## 👻 Estrutura do Projeto
 
 
 <pre><code>CreppyBird/
@@ -92,7 +92,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>🕸️ Componentes do Jogo</b></font>
+## 🕸️ Componentes do Jogo
 
 
 <ul>
@@ -135,7 +135,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>👽 Funções e Módulos</b></font>
+## 👽 Funções e Módulos
 <br></br>
 
 <code>Classe Passaro</code>
@@ -228,7 +228,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
-<font size="5"><b>🔮 Adicionais</b></font>
+## 🔮 Adicionais
 <br></br>
 
-<font size="3"><b>Projeto desenvolvido pelo Professor Roberto de Pádua Carvalho Reis e aprimorado pela turma do 5º período de Engenharia de software 3 no curso de Sistemas de informações Matutino.</b></font>
+<font size="3"><b>Projeto desenvolvido pelo Professor Roberto de Pádua Carvalho Reis e aprimorado pela turma do 5º período de Engenharia de software 3. Curso de Sistemas de informações, turno matutino.</b></font>
