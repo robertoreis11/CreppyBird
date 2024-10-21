@@ -1,4 +1,4 @@
-<font size="6"><b>CreepyBird - Halloween Edition 🪦</b></font>
+<font size="8"><b>CreepyBird - Halloween Edition 🪦</b></font>
 
 <font size="5"><b>Visão geral</b></font>
 
