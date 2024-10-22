@@ -460,7 +460,6 @@ def main():
                 if not cano.passou and cano.x < passaro.x - 100:  
                     cano.passou = True
                     adicionar_cano = True
-                    pontos += 5
                 cano.mover()
             if cano.x + cano.CANO_TOPO.get_width() < 0:
                 remover_canos.append(cano)
