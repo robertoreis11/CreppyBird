@@ -5,7 +5,7 @@ import random
 
 #Alterações Grupo 2
 from PIL import Image, ImageSequence
-
+#Versão atualizada
 TELA_LARGURA = 500
 TELA_ALTURA = 800
 
@@ -122,6 +122,8 @@ class Passaro:
             if self.tempo_invencivel <= 0:
                 self.invencivel = False
 
+
+
     def desenhar(self, tela):
         self.contagem_imagem += 1
 
@@ -147,6 +149,11 @@ class Passaro:
         pos_centro_imagem = self.imagem.get_rect(topleft=(self.x, self.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
         tela.blit(imagem_rotacionada, retangulo.topleft)
+
+    def reiniciar_velocidade(self):
+        self.velocidade = 0  # Reinicia a velocidade do pássaro
+        self.tempo = 0  # Reinicia o tempo
+        self.altura = self.y  # Reinicia a altura
 
     def get_mask(self):
         return pygame.mask.from_surface(self.imagem)
@@ -279,9 +286,11 @@ class bater:
                 if evento.type == pygame.MOUSEBUTTONDOWN:
                     if evento.type == pygame.MOUSEBUTTONDOWN:
                         if botao_reiniciar_posicao.collidepoint(evento.pos):
+                            # reiniciar_velocidade()
                             main()  # Reinicia o jogo
                             return
                         if botao_inicio_posicao.collidepoint(evento.pos):
+                            # reiniciar_velocidade()
                             tela_inicial()  # Vai para a tela inicial
                             return
                     if evento.type == pygame.KEYDOWN:
@@ -315,6 +324,8 @@ def tela_inicial():
     progresso_barra = 20
     largura_barra = 200
     tela_inicio = True
+
+    Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
 
 
     while tela_inicio:
@@ -372,7 +383,6 @@ def tela_inicial():
                 if botao_play_posicao.collidepoint(evento.pos):
                     musica_de_fundo_do_jogo.stop()
                     tela_inicio = False
-                    # contagem(3, tela2)
                     main()
 
             #evento de click do botão quit
@@ -380,6 +390,8 @@ def tela_inicial():
                 if botao_quit_posicao.collidepoint(evento.pos):
                     tela_inicio = False
                     rodando = False
+                    pygame.quit()
+                    quit()
            
            
             if evento.type == pygame.MOUSEBUTTONDOWN:
@@ -429,6 +441,11 @@ def tela_inicial():
 
             pygame.display.update()
 
+def reiniciar_velocidade(self):
+    self.velocidade = 0  # Reinicia a velocidade do pássaro
+    self.tempo = 0  # Reinicia o tempo
+    self.altura = self.y  # Reinicia a altura
+
 def contagem(seconds, tela):
     while seconds >= 0:
         tela.blit(IMAGEM_BACKGROUND, (0, 0))
@@ -447,17 +464,16 @@ def main():
     passaros = [Passaro(230, 350)]
     chao = Chao(700)
     canos = [Cano(700)]
-    
     tela = pygame.display.set_mode((TELA_LARGURA, TELA_ALTURA))
     pontos = 0
     relogio = pygame.time.Clock()
     vidas = 3
     pygame.mixer.music.play(-1)
- 
+    contagem(3,tela)
     rodando = True
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
-     
+    
   
     while rodando:
         relogio.tick(30)
