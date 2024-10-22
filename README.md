@@ -52,6 +52,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
+
 ## 🎃 Como Jogar
 
 
@@ -67,6 +68,23 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
     <ul>
         <li><b>Espaço</b>: Faz o corvo bater as asas.</li>
     </ul>
+</ol>
+
+<hr></hr>
+
+<br></br>
+
+
+## 🕆 Fluxo do jogo
+
+
+<ol>
+    <li><b>Tela Inicial:</b> O usuário pode optar por jogar ou sair. A música de fundo é tocada e o volume pode ser ajustado.</li>
+    <li><b>Contagem Regressiva:</b> Antes do início do jogo, uma contagem de 3 segundos é exibida.</li>
+    <li><b>Loop Principal:</b> O jogador deve controlar o corvo para evitar os caixões. A pontuação aumenta a cada cano ultrapassado.</li>
+    <li><b>Colisões:</b> Se o corvo colide, ele perde uma vida e entra em modo de invencibilidade temporária.</li>
+    <li><b>Game Over:</b> Quando todas as vidas são perdidas, a tela de Game Over é exibida, e o jogador pode reiniciar o jogo.</li>
+    
 </ol>
 
 <hr></hr>
@@ -93,6 +111,41 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 ├── README.md                       # Documentação
 └── requirements.txt                # Bibliotecas utilizadas no projeto
 </code></pre>
+
+<hr></hr>
+
+<br></br>
+
+## 🔥 Alterações por grupo
+
+<br>
+<ol>
+    <li><b>Grupo 1: Tela Inicial</b></li>
+    <ul>
+        <li>Implementaram a tela inicial do jogo com opções de "Play" e "Quit", além dos botões para aumentar e diminuir o volume da música de fundo.</li>
+    </ul>
+    <br>
+    <li><b>Grupo 2: Animação e Personagem</b></li>
+    <ul>
+        <li>Adicionaram uma animação GIF para o corvo utilizando a biblioteca Pillow e gerenciaram a lógica de invencibilidade.</li>
+    </ul>
+    <br>
+    <li><b>Grupo 3: Sons e Efeitos</b></li>
+    <ul>
+        <li>Implementaram os efeitos sonoros, incluindo música de fundo e sons para eventos específicos como pulo e colisão.</li>
+    </ul>
+    <br>
+    <li><b>Grupo 4: Vidas e Pontuação</b></li>
+    <ul>
+        <li>Implementaram o sistema de pontuação e vidas, com a lógica para exibir diferentes ícones de vida e uma tela de Game Over.</li>
+    </ul>
+    <br>
+    <li><b>Grupo 5: Incremento de Dificuldade</b></li>
+    <ul>
+        <li>Adicionaram um aumento progressivo na velocidade dos canos conforme a pontuação aumenta, para dificultar o jogo.</li>
+    </ul>
+    
+</ol>
 
 <hr></hr>
 
@@ -208,7 +261,7 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 
-<code>Função desenhar_tela()</code>
+<code>Função exibir_game_over()</code>
 <ul>
     <li>Mostra a tela de Game Over com os pontos obtidos pelo jogador ao decorrer da partida.</li>
 </ul>
@@ -233,6 +286,24 @@ Prepare-se para uma experiência divertida e aterrorizante, com gráficos inspir
 <hr></hr>
 
 <br></br>
+
+## 👿 Possíveis melhorias
+
+
+<ol>
+    <li><b>Salvar Pontuação Máxima:</b> Implementar um sistema para salvar a pontuação mais alta do jogador.</li>
+    <li><b>Mais Obstáculos e Desafios:</b> Adicionar outros tipos de obstáculos e níveis de dificuldade.</li>
+    <li><b>Variedade de Personagens:</b> Incluir diferentes personagens para o jogador escolher.</li>
+    <li><b>Suporte a Multijogador:</b> Implementar um modo multiplayer, onde dois jogadores competem simultaneamente.</li>
+    
+</ol>
+
+<hr></hr>
+
+<br></br>
+
+
+
 ## 🔮 Adicionais
 <br></br>
 
