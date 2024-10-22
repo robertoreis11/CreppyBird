@@ -308,13 +308,14 @@ def main():
     pontos = 0
     relogio = pygame.time.Clock()
     vidas = 3
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
+ 
     rodando = True
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
 
     Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
-       
+
     while rodando:
         relogio.tick(30)       
 
@@ -529,4 +530,5 @@ def tela_inicial():
 
             pygame.display.update()
 if __name__ == '__main__':
+
     tela_inicial()
