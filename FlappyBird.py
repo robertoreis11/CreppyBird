@@ -325,9 +325,6 @@ def tela_inicial():
     largura_barra = 200
     tela_inicio = True
 
-    Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
-
-
     while tela_inicio:
         #adicionando tela de fundo
         tela2.blit(imagem_fundo_tela_re, (0,0))
@@ -473,8 +470,8 @@ def main():
     rodando = True
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
+    Cano.VELOCIDADE = 5 
     
-  
     while rodando:
         relogio.tick(30)
 
