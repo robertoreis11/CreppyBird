@@ -123,6 +123,10 @@ class Passaro:
                 self.invencivel = False
 
 
+    def reiniciar_velocidade(self):
+        self.velocidade = 0  # Reinicia a velocidade do pássaro
+        self.tempo = 0  # Reinicia o tempo
+        self.altura = self.y  # Reinicia a altura
 
     def desenhar(self, tela):
         self.contagem_imagem += 1
@@ -149,11 +153,6 @@ class Passaro:
         pos_centro_imagem = self.imagem.get_rect(topleft=(self.x, self.y)).center
         retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
         tela.blit(imagem_rotacionada, retangulo.topleft)
-
-    def reiniciar_velocidade(self):
-        self.velocidade = 0  # Reinicia a velocidade do pássaro
-        self.tempo = 0  # Reinicia o tempo
-        self.altura = self.y  # Reinicia a altura
 
     def get_mask(self):
         return pygame.mask.from_surface(self.imagem)
@@ -325,8 +324,6 @@ def tela_inicial():
     largura_barra = 200
     tela_inicio = True
 
-    Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
-
 
     while tela_inicio:
         #adicionando tela de fundo
@@ -473,8 +470,9 @@ def main():
     rodando = True
     jogo_pausado = False  # Variável para controlar o estado de pausa
     pygame.mixer.music.set_volume(0.5)
+
+    Cano.VELOCIDADE = 5  # Reinicie a velocidade ao iniciar o jogo
     
-  
     while rodando:
         relogio.tick(30)
 
