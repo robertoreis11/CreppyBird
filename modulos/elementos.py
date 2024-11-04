@@ -6,6 +6,13 @@ pygame.mixer.music.set_volume(0.3)
 
 pygame.font.init()
 
+NOME_JOGO = pygame.image.load('./imgs/game_name.png')
+NOME_NICKNAME = pygame.image.load('./imgs/nickname.png')
+BOTAO_PLAY_IMG = pygame.image.load('./imgs/botão_play_.png')
+BOTAO_QUIT_IMG = pygame.image.load('./imgs/botão_exit_.png')
+BOTAO_VOLUME_MAIS = pygame.image.load('./imgs/botao_volume_positivo.png')
+BOTAO_VOLUME_MENOS = pygame.image.load('./imgs/botao_volume_negativo.png')
+
 IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))

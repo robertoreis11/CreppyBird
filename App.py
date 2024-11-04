@@ -228,32 +228,32 @@ def tela_inicial():
 
     while tela_inicio:
         tela2.blit(imagem_fundo_tela_re, (0, 0))
-        nome_jogo = pygame.image.load('./imgs/creppy_bird.png')
+        nome_jogo = elementos.NOME_JOGO
         nome_jogo_re = pygame.transform.scale(nome_jogo, (300, 300))
         nome_jogo_posi = nome_jogo_re.get_rect(center=(250, 110))
         tela2.blit(nome_jogo_re, nome_jogo_posi)
 
-        nome_nickname = pygame.image.load('./imgs/nickname.png')
+        nome_nickname = elementos.NOME_NICKNAME
         nome_nickname_re = pygame.transform.scale(nome_nickname, (200, 200))
         nome_nickname_posi = nome_nickname_re.get_rect(center=(250, 240))
         tela2.blit(nome_nickname_re, nome_nickname_posi)
 
-        botao_play_img = pygame.image.load('./imgs/botão_play_.png')
+        botao_play_img = elementos.BOTAO_PLAY_IMG
         botao_play_re = pygame.transform.scale(botao_play_img, (150, 100))
         botao_play_posicao = botao_play_re.get_rect(center=(250, 370))
         tela2.blit(botao_play_re, botao_play_posicao)
 
-        botao_quit_img = pygame.image.load('./imgs/botão_exit_.png')
+        botao_quit_img = elementos.BOTAO_QUIT_IMG
         botao_quit_re = pygame.transform.scale(botao_quit_img, (150, 100))
         botao_quit_posicao = botao_quit_re.get_rect(center=(250, 490))
         tela2.blit(botao_quit_re, botao_quit_posicao)
 
-        botao_volume_mais = pygame.image.load('./imgs/botao_volume_positivo.png')
+        botao_volume_mais = elementos.BOTAO_VOLUME_MAIS
         botao_volume_mais_re = pygame.transform.scale(botao_volume_mais, (50, 50))
         botao_volume_mais_posi = botao_volume_mais_re.get_rect(center=(370, 700))
         tela2.blit(botao_volume_mais_re, botao_volume_mais_posi)
 
-        botao_volume_menos = pygame.image.load('./imgs/botao_volume_negativo.png')
+        botao_volume_menos = elementos.BOTAO_VOLUME_MENOS
         botao_volume_menos_re = pygame.transform.scale(botao_volume_menos, (50, 50))
         botao_volume_menos_posi = botao_volume_menos_re.get_rect(center=(130, 700))
         tela2.blit(botao_volume_menos_re, botao_volume_menos_posi)
