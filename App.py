@@ -88,23 +88,23 @@ class Passaro:
 
 
 class Cano:
-    DISTANCIA = 300
+    DISTANCIA = 200
     VELOCIDADE = 5
-    AJUSTE_ALTURA = 50  # Novo: ajuste para baixar a posição da aranha
+    # AJUSTE_ALTURA = 60  # Novo: ajuste para baixar a posição da aranha
 
     def __init__(self, x):
         self.x = x
         self.altura = 0
         self.pos_topo = 0
         self.pos_base = 0
-        self.CANO_TOPO = elementos.IMAGEM_ARANHA
-        self.CANO_BASE = elementos.IMAGEM_CANO
+        self.CANO_TOPO = elementos.IMAGEM_ARVORE3_INVERTIDA
+        self.CANO_BASE = elementos.IMAGEM_ARVORE3
         self.passou = False
         self.definir_altura()
 
     def definir_altura(self):
         self.altura = random.randrange(50, 400)
-        self.pos_topo = self.altura - self.CANO_TOPO.get_height() + self.AJUSTE_ALTURA  # Modificado: adicionado AJUSTE_ALTURA
+        self.pos_topo = self.altura - self.CANO_TOPO.get_height()  # Modificado: adicionado AJUSTE_ALTURA
         self.pos_base = self.altura + self.DISTANCIA
 
     def mover(self):
@@ -118,7 +118,7 @@ class Cano:
         passaro_mask = passaro.get_mask()
         topo_mask = pygame.mask.from_surface(self.CANO_TOPO)
         base_mask = pygame.mask.from_surface(self.CANO_BASE)
-
+ 
         distancia_topo = (self.x - passaro.x, self.pos_topo - round(passaro.y))
         distancia_base = (self.x - passaro.x, self.pos_base - round(passaro.y))
 
@@ -205,6 +205,13 @@ class bater:
                         if evento.key == pygame.K_SPACE:
                             main(REINICIOU=1)  # Reinicia o jogo com a tecla de espaço
                             return
+
+
+
+def mudar_estagio(self,pontos,tela):
+    if pontos == 10:
+        tela.blit(elementos.IMAGEM_BACKGROUND2)
+
 
 #// alteraçôes Grupo 1
 def tela_inicial():
@@ -301,17 +308,22 @@ def tela_inicial():
                     texto_exibir = f'Bem Vindo {nick_usuario}!'
                     texto_exibir_re = font_nick.render(texto_exibir, True, (255, 255, 255))
                     tela2.blit(texto_exibir_re, (20, 20))
+                    pygame.display.update()
+                    pygame.time.delay(3000) 
 
                 elif evento.key == pygame.K_BACKSPACE:
                     nick_usuario = nick_usuario[:-1]
 
                 elif font_nick.render(nick_usuario, True, (255, 255, 255)).get_width() < largura_nick - 5:
                     nick_usuario += evento.unicode
+                elif nick_usuario == 'infinito':
+                    texto_sucesso = 'Código ativado com sucesso!'
+                    sucesso_exibir = texto_sucesso.render(sucesso_exibir, True, (255, 255, 255))
+                    tela2.blit(sucesso_exibir, (20, 40))
 
             pygame.draw.rect(tela2, (0, 0, 0), campo_nick, 2)
             nick_re = font_nick.render(nick_usuario, True, (255, 255, 255))
             tela2.blit(nick_re, campo_nick)
-
             pygame.display.update()
 
 
@@ -327,12 +339,17 @@ def main(REINICIOU=0):
     relogio = pygame.time.Clock()
     vidas = 3
     pygame.mixer.music.play(-1)
-    contagem(3, tela, elementos.SOM_CONTAGEM, elementos.IMAGEM_BACKGROUND)
+    # contagem(3, tela, elementos.SOM_CONTAGEM, elementos.IMAGEM_BACKGROUND)
     rodando = True
     jogo_pausado = False
     pygame.mixer.music.set_volume(0.5)
 
     Cano.VELOCIDADE = 5
+
+    # Inicialize as imagens de fundo
+    background1 = elementos.IMAGEM_BACKGROUND  # Primeira imagem de fundo
+    background2 = elementos.IMAGEM_BACKGROUND3 # Segunda imagem de fundo
+    background_atual = background1  # Começa com a primeira imagem
 
     while rodando:
         relogio.tick(30)
@@ -395,29 +412,39 @@ def main(REINICIOU=0):
         for cano in remover_canos:
             canos.remove(cano)
 
+        # Ajustado para o pássaro não perder as 3 vidas quando tocar no chão ou no topo da tela
         for passaro in passaros:
-            if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
-                vidas -= 1
-                pygame.mixer.music.stop()
-                elementos.SOM_GAME_OVER.play()
+            if (passaro.y < 0):
+                passaro.y += 10
+            if (passaro.y > 600):
+                passaro.y -= 10
 
         if vidas == 0:
             bater().mostrar_recorde(pontos, tela)
             bater().exibir_game_over(tela)
 
-        desenhar_tela(
-            tela,
+         # Altera a imagem de fundo ao atingir 10 pontos
+        if pontos >= 10:
+            background_atual = background2  # Muda para o segundo fundo
+
+        # Atualiza a tela com o fundo atual
+        tela.blit(background_atual, (0, 0))
+              
+        desenhar_tela(tela,
             passaros,
             canos,
             chao,
             pontos,
             vidas,
-            elementos.IMAGEM_BACKGROUND,
+            background_atual,
             elementos.IMAGEM_VIDA1,
             elementos.IMAGEM_VIDA2,
             elementos.IMAGEM_VIDA3,
-            elementos.FONTE_PONTOS
+            elementos.FONTE_PONTOS,
+
+            
         )
+
 
 
 if __name__ == '__main__':
