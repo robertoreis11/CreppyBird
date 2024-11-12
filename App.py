@@ -344,12 +344,17 @@ def main(REINICIOU=0):
     jogo_pausado = False
     pygame.mixer.music.set_volume(0.5)
 
+
     Cano.VELOCIDADE = 5
 
     # Inicialize as imagens de fundo
     background1 = elementos.IMAGEM_BACKGROUND  # Primeira imagem de fundo
     background2 = elementos.IMAGEM_BACKGROUND3 # Segunda imagem de fundo
     background_atual = background1  # Começa com a primeira imagem
+
+
+    Cano.VELOCIDADE = 5 
+    
 
     while rodando:
         relogio.tick(30)
