@@ -1,6 +1,7 @@
 import modulos.elementos as elementos
 from modulos.config import pygame, random, recorde, TELA_LARGURA, TELA_ALTURA
 from modulos.utilidades import desenhar_tela, contagem
+from CreepyCarnival import carnival, carregar_carnival, alternar_carnival, verifica_score
 
 
 class Passaro:
@@ -422,3 +423,29 @@ def main(REINICIOU=0):
 
 if __name__ == '__main__':
     main()  # Chama a main para iniciar o jogo
+
+    # Controle de estado para eventos
+    estado_jogo = 'pausado'
+    IMAGENS_CORVO = pygame.image.load('imgs', 'crow.gif')
+    IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load('imgs', 'background_cemiterio.png')
+
+running = True
+
+while running:
+    # Processa eventos
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            running = False
+
+# Segredo: Ativa/desativa o Carnaval
+if estado_jogo == "pausado":  # Apenas no estado pausado
+    if evento.key == pygame.K_c:
+        alternar_carnival()
+
+        # Atualiza o jogo se o Carnaval for ativado
+        if carnival:
+            IMAGENS_CORVO = pygame.image.load('boneco_de_olinda.png')
+            IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load('campos_atacados.png')
+        else:
+            IMAGENS_CORVO = pygame.image.load("sprite_original.png")
+            IMAGEM_BACKGROUND_ORIGINAL = pygame.image.load("fundo_original.png")
