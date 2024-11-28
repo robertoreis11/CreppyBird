@@ -17,10 +17,6 @@ BOTAO_VOLUME_MENOS = pygame.image.load('./imgs/botao_volume_negativo.png')
 # IMAGENS DE OBSTÁCULOS
 IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
-IMAGEM_ARVORE1 = pygame.image.load(os.path.join('imgs', 'arvore1.png'))
-IMAGEM_ARVORE2 = pygame.image.load(os.path.join('imgs', 'arvore2.png'))
-IMAGEM_ARVORE3 = pygame.image.load(os.path.join('imgs', 'arvore3.png'))
-IMAGEM_ARVORE3_INVERTIDA =  pygame.transform.flip(IMAGEM_ARVORE3,False, True)
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 
 # IMAGENS DE FUNDO
