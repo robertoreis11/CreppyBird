@@ -367,6 +367,10 @@ def main(REINICIOU=0):
         for passaro in passaros:
             passaro.mover()
             chao.mover()
+        if (passaro.y < 0):
+            passaro.y += 10
+        if (passaro.y > 600):
+            passaro.y -= 10
 
         adicionar_cano = False
         remover_canos = []
@@ -390,7 +394,7 @@ def main(REINICIOU=0):
                 remover_canos.append(cano)
 
         if adicionar_cano:
-            pontos += 5
+            pontos += 20
             canos.append(Cano(600))
             if pontos % 50 == 0:
                 Cano.VELOCIDADE += 3
@@ -398,22 +402,27 @@ def main(REINICIOU=0):
         for cano in remover_canos:
             canos.remove(cano)
 
-        for passaro in passaros:
-            if (passaro.y + passaro.imagem.get_height()) > chao.y or passaro.y < 0:
-                vidas -= 1
-                pygame.mixer.music.stop()
-                elementos.SOM_GAME_OVER.play()
 
+
+         # Ajustado para o pássaro não perder as 3 vidas quando tocar no chão ou no topo da tela
+          
+        
         if vidas == 0:
             bater().mostrar_recorde(pontos, tela)
             bater().exibir_game_over(tela)
             
         if pontos % 100 == 0 and pontos > 0:
-            # Incremento com verificação de tamanho do array
-            indice_personagem_atual = (indice_personagem_atual + 1) % len(elementos.PERSONAGENS)
-            indice_fundo_atual = (indice_fundo_atual + 1) % len(elementos.IMAGENS_BACKGROUND)
-            indice_obstaculo_atual = (indice_obstaculo_atual + 1) % len(elementos.OBSTACULOS)
-            
+            indice_personagem_atual += 1
+            if indice_personagem_atual >= len(elementos.PERSONAGENS):
+                indice_personagem_atual = 0
+
+            indice_fundo_atual += 1
+            if indice_fundo_atual >= len(elementos.IMAGENS_BACKGROUND):
+                indice_fundo_atual = 1
+
+            indice_obstaculo_atual += 1
+            if indice_obstaculo_atual >= len(elementos.OBSTACULOS):
+                indice_obstaculo_atual = 0
             # Atualiza recursos do jogo
             passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
