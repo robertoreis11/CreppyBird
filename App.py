@@ -334,6 +334,9 @@ def main(REINICIOU=0):
 
     Cano.VELOCIDADE = 5
 
+    indice_personagem_atual = 0
+    indice_fundo_atual = 0
+    indice_obstaculo_atual = 0
     while rodando:
         relogio.tick(30)
 
@@ -404,6 +407,20 @@ def main(REINICIOU=0):
         if vidas == 0:
             bater().mostrar_recorde(pontos, tela)
             bater().exibir_game_over(tela)
+            
+        if pontos % 100 == 0 and pontos > 0:
+            # Incremento com verificação de tamanho do array
+            indice_personagem_atual = (indice_personagem_atual + 1) % len(elementos.PERSONAGENS)
+            indice_fundo_atual = (indice_fundo_atual + 1) % len(elementos.IMAGENS_BACKGROUND)
+            indice_obstaculo_atual = (indice_obstaculo_atual + 1) % len(elementos.OBSTACULOS)
+            
+            # Atualiza recursos do jogo
+            passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
+            elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
+            elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['imagem']
+            
+            Cano.CANO_TOPO = elementos.OBSTACULOS[indice_obstaculo_atual]['topo']
+            Cano.CANO_BASE = elementos.OBSTACULOS[indice_obstaculo_atual]['base']
 
         desenhar_tela(
             tela,

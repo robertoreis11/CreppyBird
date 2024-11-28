@@ -41,7 +41,35 @@ SOM_GAME_OVER = pygame.mixer.Sound(
     os.path.join('sons', 'mixkit-evil-dwarf-laugh-421.wav'))
 
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
+PERSONAGENS = [
+    {'imagens':IMAGENS_CORVO,
+     'som_pulo': SOM_PULO
+     }, 
+]
+IMAGENS_BACKGROUND = [
+    {'imagem': IMAGEM_BACKGROUND,
+     'som_fundo': MUSICA_DE_FUNDO
+     },
+]
+OBSTACULOS = [
+    {'topo': IMAGEM_ARANHA,
+     'base': IMAGEM_CANO
+     },
+]
+def adicionar_novo_background(imagem):
+    IMAGENS_BACKGROUND.append(pygame.transform.scale(imagem, elementos.IMAGEM_BACKGROUND.get_size()))
 
+def adicionar_novo_personagem(imagens, som_pulo):
+    PERSONAGENS.append({
+        'imagens': [pygame.transform.scale(img, IMAGENS_CORVO[0].get_size()) for img in imagens],
+        'som_pulo': som_pulo
+    })
+
+def adicionar_novo_obstaculo(imagem_topo, imagem_base):
+    OBSTACULOS.append({
+        'topo': pygame.transform.scale(imagem_topo, IMAGEM_ARANHA.get_size()),
+        'base': pygame.transform.scale(imagem_base, IMAGEM_CANO.get_size())
+    })
 SOM_PULO.set_volume(0.2)
 SOM_COLISAO.set_volume(0.3)
 SOM_GAME_OVER.set_volume(0.8)
