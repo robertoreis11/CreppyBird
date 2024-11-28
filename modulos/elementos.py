@@ -25,15 +25,10 @@ IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'b
 
 # IMAGENS DE FUNDO
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
-<<<<<<< HEAD
 IMAGEM_BACKGROUND2 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','fundoNatalino.jpeg')),(TELA_LARGURA, TELA_ALTURA))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 
 # IMAGENS NA INTERFACE DA GAMEPLAY
-=======
-IMAGEM_BACKGROUND2 = pygame.image.load(os.path.join('imgs','fundoNatalino1.jpeg'))
-IMAGEM_BACKGROUND3 = pygame.image.load(os.path.join('imgs','fundoNatalino2.jpeg'))
->>>>>>> b0ccf56f8c63282f4b6a11b8687e3b398507cca1
 IMAGEM_VIDA0 = pygame.image.load(os.path.join('imgs', 'vida0.png'))
 IMAGEM_VIDA1 = pygame.image.load(os.path.join('imgs', 'vida1.png'))
 IMAGEM_VIDA2 = pygame.image.load(os.path.join('imgs', 'vida2.png'))
