@@ -43,6 +43,10 @@ def desenhar_tela(tela, passaros, canos, chao, pontos, vidas, img_backgroud, img
     elif vidas == 1:
         tela.blit(img_vida1, (10, 10))
 
+  
+    
+
+
     chao.desenhar(tela)
     texto = fonte_pontos.render(f"Pontos: {pontos}", 1, (255, 255, 255))
     tela.blit(texto, (TELA_LARGURA - 10 - texto.get_width(), 10))

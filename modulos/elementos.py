@@ -17,14 +17,23 @@ BOTAO_VOLUME_MENOS = pygame.image.load('./imgs/botao_volume_negativo.png')
 # IMAGENS DE OBSTÁCULOS
 IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
+IMAGEM_ARVORE1 = pygame.image.load(os.path.join('imgs', 'arvore1.png'))
+IMAGEM_ARVORE2 = pygame.image.load(os.path.join('imgs', 'arvore2.png'))
+IMAGEM_ARVORE3 = pygame.image.load(os.path.join('imgs', 'arvore3.png'))
+IMAGEM_ARVORE3_INVERTIDA =  pygame.transform.flip(IMAGEM_ARVORE3,False, True)
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 
 # IMAGENS DE FUNDO
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
+<<<<<<< HEAD
 IMAGEM_BACKGROUND2 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','fundoNatalino.jpeg')),(TELA_LARGURA, TELA_ALTURA))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 
 # IMAGENS NA INTERFACE DA GAMEPLAY
+=======
+IMAGEM_BACKGROUND2 = pygame.image.load(os.path.join('imgs','fundoNatalino1.jpeg'))
+IMAGEM_BACKGROUND3 = pygame.image.load(os.path.join('imgs','fundoNatalino2.jpeg'))
+>>>>>>> b0ccf56f8c63282f4b6a11b8687e3b398507cca1
 IMAGEM_VIDA0 = pygame.image.load(os.path.join('imgs', 'vida0.png'))
 IMAGEM_VIDA1 = pygame.image.load(os.path.join('imgs', 'vida1.png'))
 IMAGEM_VIDA2 = pygame.image.load(os.path.join('imgs', 'vida2.png'))
