@@ -315,7 +315,12 @@ def tela_inicial():
             pygame.display.update()
 
 
+# Variável para controlar o último múltiplo de 100
+ultimo_multiplo_100 = 0
+
 def main(REINICIOU=0):
+    global ultimo_multiplo_100  # Tornar o último múltiplo de 100 acessível dentro da função
+    
     if REINICIOU == 0:
         tela_inicial()
 
@@ -337,6 +342,7 @@ def main(REINICIOU=0):
     indice_personagem_atual = 0
     indice_fundo_atual = 0
     indice_obstaculo_atual = 0
+
     while rodando:
         relogio.tick(30)
 
@@ -364,6 +370,7 @@ def main(REINICIOU=0):
             pygame.display.flip()
             continue
 
+        # Atualização dos movimentos dos objetos
         for passaro in passaros:
             passaro.mover()
             chao.mover()
@@ -402,35 +409,38 @@ def main(REINICIOU=0):
         for cano in remover_canos:
             canos.remove(cano)
 
-
-
          # Ajustado para o pássaro não perder as 3 vidas quando tocar no chão ou no topo da tela
           
-        
         if vidas == 0:
             bater().mostrar_recorde(pontos, tela)
             bater().exibir_game_over(tela)
             
-        if pontos % 100 == 0 and pontos > 0:
+        # Atualizar os recursos do jogo quando atingir um múltiplo de 100
+        if pontos % 100 == 0 and pontos > 0 and pontos != ultimo_multiplo_100:
             indice_personagem_atual += 1
             if indice_personagem_atual >= len(elementos.PERSONAGENS):
                 indice_personagem_atual = 0
 
             indice_fundo_atual += 1
             if indice_fundo_atual >= len(elementos.IMAGENS_BACKGROUND):
-                indice_fundo_atual = 1
+                indice_fundo_atual = 0  # Corrigido para reiniciar corretamente o índice de fundo
 
             indice_obstaculo_atual += 1
             if indice_obstaculo_atual >= len(elementos.OBSTACULOS):
                 indice_obstaculo_atual = 0
-            # Atualiza recursos do jogo
+
+            # Atualiza os recursos do jogo com base nos novos índices
             passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
             elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['imagem']
-            
+
             Cano.CANO_TOPO = elementos.OBSTACULOS[indice_obstaculo_atual]['topo']
             Cano.CANO_BASE = elementos.OBSTACULOS[indice_obstaculo_atual]['base']
 
+            # Marca o último múltiplo de 100
+            ultimo_multiplo_100 = pontos
+
+        # Exibe a tela
         desenhar_tela(
             tela,
             passaros,
@@ -444,6 +454,7 @@ def main(REINICIOU=0):
             elementos.IMAGEM_VIDA3,
             elementos.FONTE_PONTOS
         )
+
 
 
 if __name__ == '__main__':
