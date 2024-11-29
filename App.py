@@ -92,13 +92,15 @@ class Cano:
     VELOCIDADE = 5
     AJUSTE_ALTURA = 50  # Novo: ajuste para baixar a posição da aranha
 
+    
+    CANO_TOPO = elementos.IMAGEM_ARANHA 
+    CANO_BASE = elementos.IMAGEM_CANO    
+
     def __init__(self, x):
         self.x = x
         self.altura = 0
         self.pos_topo = 0
         self.pos_base = 0
-        self.CANO_TOPO = elementos.IMAGEM_ARANHA
-        self.CANO_BASE = elementos.IMAGEM_CANO
         self.passou = False
         self.definir_altura()
 
@@ -439,6 +441,8 @@ def main(REINICIOU=0):
 
             # Marca o último múltiplo de 100
             ultimo_multiplo_100 = pontos
+            
+            print(f"Índice Personagem: {indice_personagem_atual}, Índice Fundo: {indice_fundo_atual}, Índice Obstáculo: {indice_obstaculo_atual}")
 
         # Exibe a tela
         desenhar_tela(
