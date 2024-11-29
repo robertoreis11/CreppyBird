@@ -18,6 +18,8 @@ BOTAO_VOLUME_MENOS = pygame.image.load('./imgs/botao_volume_negativo.png')
 IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
+IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara1.png')))
+IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
 
 
 # IMAGENS DE FUNDO
@@ -92,6 +94,10 @@ IMAGENS_BACKGROUND = [
 OBSTACULOS = [
     {'topo': IMAGEM_ARANHA,
      'base': IMAGEM_CANO
+    },
+
+    {'topo': IMAGEM_MASCARA1,
+     'base': IMAGEM_MASCARA2
     },
 ]
 
