@@ -434,11 +434,11 @@ def main(REINICIOU=0):
             # Atualiza os recursos do jogo com base nos novos índices
             passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
+            elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['som_fundo'].play() 
             elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['imagem']
-
             Cano.CANO_TOPO = elementos.OBSTACULOS[indice_obstaculo_atual]['topo']
             Cano.CANO_BASE = elementos.OBSTACULOS[indice_obstaculo_atual]['base']
-
+        
             # Marca o último múltiplo de 100
             ultimo_multiplo_100 = pontos
             
