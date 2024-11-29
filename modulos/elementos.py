@@ -18,10 +18,15 @@ BOTAO_VOLUME_MENOS = pygame.image.load('./imgs/botao_volume_negativo.png')
 IMAGEM_ARANHA = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'aranha.png')))
 IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'caixao.png')))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
+IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara1.png')))
+IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
+
 
 # IMAGENS DE FUNDO
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
 IMAGEM_BACKGROUND2 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','fundoNatalino.jpeg')),(TELA_LARGURA, TELA_ALTURA))
+IMAGEM_BACKGROUND3 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','background_carnaval.png')),(TELA_LARGURA, TELA_ALTURA))
+IMAGEM_BACKGROUND4 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','fundoTela.jpg')),(TELA_LARGURA, TELA_ALTURA))
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 
 # IMAGENS NA INTERFACE DA GAMEPLAY
@@ -58,23 +63,41 @@ SOM_GAME_OVER.set_volume(0.8)
 
 # PERSONAGENS
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
-
+IMAGENS_OLINDA = load_gif(os.path.join('imgs', 'olinda.gif'))
+IMAGENS_COELHO = load_gif(os.path.join('imgs', 'coelhao.gif'))
 
 # ADICIONAR PERSONAGENS
 PERSONAGENS = [
     {'imagens':IMAGENS_CORVO,
-     'som_pulo': SOM_PULO},  
+     'som_pulo': SOM_PULO},
+    
+    {'imagens': IMAGENS_OLINDA, 
+      'som_pulo': SOM_PULO},
+
+      {'imagens': IMAGENS_COELHO, 
+      'som_pulo': SOM_PULO},
 ]
 IMAGENS_BACKGROUND = [
     {'imagem': IMAGEM_BACKGROUND,
      'som_fundo': MUSICA_DE_FUNDO},
 
     {'imagem': IMAGEM_BACKGROUND2,
-    'som_fundo': MUSICA_DE_FUNDO }
+    'som_fundo': MUSICA_DE_FUNDO },
+
+    {'imagem': IMAGEM_BACKGROUND3, 
+     'som_fundo': MUSICA_DE_FUNDO},
+     
+     {'imagem': IMAGEM_BACKGROUND4, 
+     'som_fundo': MUSICA_DE_FUNDO},
 ]
+
 OBSTACULOS = [
     {'topo': IMAGEM_ARANHA,
      'base': IMAGEM_CANO
+    },
+
+    {'topo': IMAGEM_MASCARA1,
+     'base': IMAGEM_MASCARA2
     },
 ]
 
