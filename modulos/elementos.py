@@ -22,7 +22,6 @@ IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs'
 IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
 
 
-
 # IMAGENS DE FUNDO
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
 IMAGEM_BACKGROUND2 = pygame.transform.scale(pygame.image.load(os.path.join('imgs','fundoNatalino.jpeg')),(TELA_LARGURA, TELA_ALTURA))
