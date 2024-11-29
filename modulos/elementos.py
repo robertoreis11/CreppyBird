@@ -20,6 +20,8 @@ IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'c
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara1.png')))
 IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
+IMAGEM_CENOURA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenourabase1.png')))
+IMAGEM_CENOURA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenouratopo1.png')))
 
 
 # IMAGENS DE FUNDO
@@ -98,6 +100,10 @@ OBSTACULOS = [
 
     {'topo': IMAGEM_MASCARA1,
      'base': IMAGEM_MASCARA2
+    },
+
+    {'topo': IMAGEM_CENOURA2,
+     'base': IMAGEM_CENOURA1
     },
 ]
 
