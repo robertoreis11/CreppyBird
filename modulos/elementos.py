@@ -20,6 +20,8 @@ IMAGEM_CANO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'c
 IMAGEM_CHAO = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'base.jpg')))
 IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara1.png')))
 IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
+IMAGEM_CENOURA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenourabase1.png')))
+IMAGEM_CENOURA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenouratopo1.png')))
 
 
 # IMAGENS DE FUNDO
@@ -77,22 +79,24 @@ PERSONAGENS = [
     {'imagens': IMAGENS_OLINDA, 
       'som_pulo': SOM_PULO},
 
-      {'imagens': IMAGENS_COELHO, 
+    {'imagens': IMAGENS_COELHO, 
       'som_pulo': SOM_PULO},
 ]
+
 IMAGENS_BACKGROUND = [
     {'imagem': IMAGEM_BACKGROUND,
-     'som_fundo': MUSICA_DE_FUNDO_DO_JOGO},
+     'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 
     {'imagem': IMAGEM_BACKGROUND2,
-    'som_fundo': MUSICA_DE_FUNDO_DO_JOGO },
+    'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 
     {'imagem': IMAGEM_BACKGROUND3, 
-     'som_fundo': MUSICA_DE_FUNDO_CARNAVAL},
-     
-     {'imagem': IMAGEM_BACKGROUND4, 
-     'som_fundo': MUSICA_DE_FUNDO_DO_JOGO},
+     'som_fundo': './sons/carnaval_audio.ogg'}, 
+
+    {'imagem': IMAGEM_BACKGROUND4, 
+     'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 ]
+
 
 OBSTACULOS = [
     {'topo': IMAGEM_ARANHA,
@@ -101,6 +105,10 @@ OBSTACULOS = [
 
     {'topo': IMAGEM_MASCARA1,
      'base': IMAGEM_MASCARA2
+    },
+
+    {'topo': IMAGEM_CENOURA2,
+     'base': IMAGEM_CENOURA1
     },
 ]
 
