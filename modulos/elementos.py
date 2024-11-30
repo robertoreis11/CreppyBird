@@ -79,22 +79,24 @@ PERSONAGENS = [
     {'imagens': IMAGENS_OLINDA, 
       'som_pulo': SOM_PULO},
 
-      {'imagens': IMAGENS_COELHO, 
+    {'imagens': IMAGENS_COELHO, 
       'som_pulo': SOM_PULO},
 ]
+
 IMAGENS_BACKGROUND = [
     {'imagem': IMAGEM_BACKGROUND,
-     'som_fundo': MUSICA_DE_FUNDO_DO_JOGO},
+     'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 
     {'imagem': IMAGEM_BACKGROUND2,
-    'som_fundo': MUSICA_DE_FUNDO_DO_JOGO },
+    'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 
     {'imagem': IMAGEM_BACKGROUND3, 
-     'som_fundo': MUSICA_DE_FUNDO_CARNAVAL},
-     
-     {'imagem': IMAGEM_BACKGROUND4, 
-     'som_fundo': MUSICA_DE_FUNDO_DO_JOGO},
+     'som_fundo': './sons/carnaval_audio.ogg'}, 
+
+    {'imagem': IMAGEM_BACKGROUND4, 
+     'som_fundo': './sons/this-is-halloween-172354.mp3'},  
 ]
+
 
 OBSTACULOS = [
     {'topo': IMAGEM_ARANHA,
