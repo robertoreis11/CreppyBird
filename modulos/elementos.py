@@ -77,7 +77,7 @@ PERSONAGENS = [
      'som_pulo': SOM_PULO},
     
     {'imagens': IMAGENS_OLINDA, 
-      'som_pulo': SOM_PULO},
+      'som_pulo': SOM_PULO_CARNAVAL},
 
     {'imagens': IMAGENS_COELHO, 
       'som_pulo': SOM_PULO},
