@@ -66,7 +66,7 @@ class Passaro:
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*2:
             self.imagem = self.IMGS[1]
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*3:
-            self.imagem = self.IMGS[0]
+            self.imagem = self.IMGS[2]
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*4:
             self.imagem = self.IMGS[1]
         elif self.contagem_imagem >= self.TEMPO_ANIMACAO*4 + 1:
@@ -334,7 +334,7 @@ def main(REINICIOU=0):
     relogio = pygame.time.Clock()
     vidas = 3
     pygame.mixer.music.play(-1)
-    contagem(3, tela, elementos.SOM_CONTAGEM, elementos.IMAGEM_BACKGROUND)
+    # contagem(3, tela, elementos.SOM_CONTAGEM, elementos.IMAGEM_BACKGROUND)  
     rodando = True
     jogo_pausado = False
     pygame.mixer.music.set_volume(0.5)
@@ -442,8 +442,15 @@ def main(REINICIOU=0):
             # Marca o último múltiplo de 100
             ultimo_multiplo_100 = pontos
             
-            print(f"Índice Personagem: {indice_personagem_atual}, Índice Fundo: {indice_fundo_atual}, Índice Obstáculo: {indice_obstaculo_atual}")
-
+            # print(f"Índice Personagem: {indice_personagem_atual}, Índice Fundo: {indice_fundo_atual}, Índice Obstáculo: {indice_obstaculo_atual}")
+        if REINICIOU == 1:
+            passaros[0].IMGS = elementos.PERSONAGENS[0]['imagens']
+            elementos.SOM_PULO = elementos.PERSONAGENS[0]['som_pulo']
+            elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[0]['imagem']
+            Cano.CANO_TOPO = elementos.OBSTACULOS[0]['topo']
+            Cano.CANO_BASE = elementos.OBSTACULOS[0]['base']
+            REINICIOU = 0
+            
         # Exibe a tela
         desenhar_tela(
             tela,
