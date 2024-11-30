@@ -66,7 +66,7 @@ class Passaro:
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*2:
             self.imagem = self.IMGS[1]
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*3:
-            self.imagem = self.IMGS[0]
+            self.imagem = self.IMGS[2]
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*4:
             self.imagem = self.IMGS[1]
         elif self.contagem_imagem >= self.TEMPO_ANIMACAO*4 + 1:
