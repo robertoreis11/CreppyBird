@@ -344,6 +344,7 @@ def main(REINICIOU=0):
     indice_personagem_atual = 0
     indice_fundo_atual = 0
     indice_obstaculo_atual = 0
+    indice_som_fundo_atual = 0 
 
     while rodando:
         relogio.tick(30)
@@ -431,14 +432,23 @@ def main(REINICIOU=0):
             if indice_obstaculo_atual >= len(elementos.OBSTACULOS):
                 indice_obstaculo_atual = 0
 
+            indice_som_fundo_atual += 1
+            if indice_som_fundo_atual >= len(elementos.IMAGENS_BACKGROUND):
+                indice_som_fundo_atual = 0  # Para garantir que o som reinicie corretamente
+
+            som_fundo_atual = elementos.IMAGENS_BACKGROUND[indice_som_fundo_atual]['som_fundo']
+
+
             # Atualiza os recursos do jogo com base nos novos índices
             passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
+            som_fundo_atual = elementos.IMAGENS_BACKGROUND[indice_som_fundo_atual]['som_fundo']
+            pygame.mixer.music.load(som_fundo_atual)  # Carrega a música de fundo
+            pygame.mixer.music.play(-1)  # Toca a música em loop 
             elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['imagem']
-
             Cano.CANO_TOPO = elementos.OBSTACULOS[indice_obstaculo_atual]['topo']
             Cano.CANO_BASE = elementos.OBSTACULOS[indice_obstaculo_atual]['base']
-
+        
             # Marca o último múltiplo de 100
             ultimo_multiplo_100 = pontos
             
