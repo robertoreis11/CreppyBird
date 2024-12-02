@@ -22,7 +22,8 @@ IMAGEM_MASCARA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs'
 IMAGEM_MASCARA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'mascara2.png')))
 IMAGEM_CENOURA1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenourabase1.png')))
 IMAGEM_CENOURA2 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'cenouratopo1.png')))
-
+OBSTACULO_NATALINO1 = pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'obstaculoNatalino1.png')))
+OBSTACULO_NATALINO2= pygame.transform.scale2x(pygame.image.load(os.path.join('imgs', 'obstaculoNatalino2.png')))
 
 # IMAGENS DE FUNDO
 IMAGEM_BACKGROUND = pygame.image.load(os.path.join('imgs','background_cemiterio.png'))
@@ -71,17 +72,22 @@ SOM_GAME_OVER.set_volume(0.8)
 IMAGENS_CORVO = load_gif(os.path.join('imgs', 'crow.gif'))
 IMAGENS_OLINDA = load_gif(os.path.join('imgs', 'olinda.gif'))
 IMAGENS_COELHO = load_gif(os.path.join('imgs', 'coelhao.gif'))
+CARREGAR_IMGS_BODE = load_gif(os.path.join('imgs', 'animação_bode.gif'))
+IMAGENS_BODE = [pygame.transform.scale(img, (100, 100)) for img in CARREGAR_IMGS_BODE]
 
 # ADICIONAR PERSONAGENS
 PERSONAGENS = [
     {'imagens':IMAGENS_CORVO,
      'som_pulo': SOM_PULO},
     
+    {'imagens': IMAGENS_BODE, 
+      'som_pulo': SOM_PULO},
+
     {'imagens': IMAGENS_OLINDA, 
       'som_pulo': SOM_PULO_CARNAVAL},
 
     {'imagens': IMAGENS_COELHO, 
-      'som_pulo': SOM_PULO_PASCOA},
+     'som_pulo': SOM_PULO_PASCOA},
 ]
 
 IMAGENS_BACKGROUND = [
@@ -103,14 +109,19 @@ OBSTACULOS = [
     {'topo': IMAGEM_ARANHA,
      'base': IMAGEM_CANO
     },
+    
+    {'topo': OBSTACULO_NATALINO1,
+     'base': OBSTACULO_NATALINO2
+    },
 
     {'topo': IMAGEM_MASCARA1,
      'base': IMAGEM_MASCARA2
     },
-
+    
     {'topo': IMAGEM_CENOURA2,
      'base': IMAGEM_CENOURA1
     },
+
 ]
 
 
