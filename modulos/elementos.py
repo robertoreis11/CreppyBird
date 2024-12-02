@@ -61,6 +61,7 @@ SOM_COLISAO = pygame.mixer.Sound(os.path.join('sons', 'mixkit-arcade-fast-game-o
 
 MUSICA_DE_FUNDO_CARNAVAL = pygame.mixer.Sound(os.path.join('sons', 'carnaval_audio.ogg'))
 SOM_PULO_CARNAVAL = pygame.mixer.Sound(os.path.join('sons', 'carnaval_audio_salto.ogg'))
+SOM_PULO_PASCOA = pygame.mixer.Sound(os.path.join('sons', 'asaCOELHO.wav'))
 SOM_GAME_OVER = pygame.mixer.Sound(
     os.path.join('sons', 'mixkit-evil-dwarf-laugh-421.wav'))
 SOM_PULO.set_volume(0.2)
@@ -83,10 +84,10 @@ PERSONAGENS = [
       'som_pulo': SOM_PULO},
 
     {'imagens': IMAGENS_OLINDA, 
-      'som_pulo': SOM_PULO},
+      'som_pulo': SOM_PULO_CARNAVAL},
 
     {'imagens': IMAGENS_COELHO, 
-    'som_pulo': SOM_PULO},
+     'som_pulo': SOM_PULO_PASCOA},
 ]
 
 IMAGENS_BACKGROUND = [
@@ -100,7 +101,7 @@ IMAGENS_BACKGROUND = [
      'som_fundo': './sons/carnaval_audio.ogg'}, 
 
     {'imagem': IMAGEM_BACKGROUND4, 
-     'som_fundo': './sons/this-is-halloween-172354.mp3'},  
+     'som_fundo': './sons/pascoa.mp3'},  
 ]
 
 
