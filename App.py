@@ -435,10 +435,7 @@ def main(REINICIOU=0):
             indice_som_fundo_atual += 1
             if indice_som_fundo_atual >= len(elementos.IMAGENS_BACKGROUND):
                 indice_som_fundo_atual = 0  # Para garantir que o som reinicie corretamente
-
-            som_fundo_atual = elementos.IMAGENS_BACKGROUND[indice_som_fundo_atual]['som_fundo']
-
-
+ 
             # Atualiza os recursos do jogo com base nos novos índices
             passaros[0].IMGS = elementos.PERSONAGENS[indice_personagem_atual]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[indice_personagem_atual]['som_pulo']
@@ -448,17 +445,20 @@ def main(REINICIOU=0):
             elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[indice_fundo_atual]['imagem']
             Cano.CANO_TOPO = elementos.OBSTACULOS[indice_obstaculo_atual]['topo']
             Cano.CANO_BASE = elementos.OBSTACULOS[indice_obstaculo_atual]['base']
-        
+            
             # Marca o último múltiplo de 100
             ultimo_multiplo_100 = pontos
             
-            # print(f"Índice Personagem: {indice_personagem_atual}, Índice Fundo: {indice_fundo_atual}, Índice Obstáculo: {indice_obstaculo_atual}")
         if REINICIOU == 1:
             passaros[0].IMGS = elementos.PERSONAGENS[0]['imagens']
             elementos.SOM_PULO = elementos.PERSONAGENS[0]['som_pulo']
+            som_fundo_atual = elementos.IMAGENS_BACKGROUND[0]['som_fundo']
+            pygame.mixer.music.load(som_fundo_atual) 
+            pygame.mixer.music.play(-1)  
             elementos.IMAGEM_BACKGROUND = elementos.IMAGENS_BACKGROUND[0]['imagem']
             Cano.CANO_TOPO = elementos.OBSTACULOS[0]['topo']
             Cano.CANO_BASE = elementos.OBSTACULOS[0]['base']
+            ultimo_multiplo_100 = 0
             REINICIOU = 0
             
         # Exibe a tela
