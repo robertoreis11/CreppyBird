@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-<b>CreepyThings</b> é uma recriação do clássico Flappy Bird, mas com um toque assustador, carnavalesco, natalino e caspoa, em vez de guiar um pássaro alegre através de canos, você controla um corvo sombrio voando através de um cemitério cheio de lápides e árvores mortas, ao atingir certa pontuação, o senário e o personagem mudam para um bode em um tema nataino, em outro momento é alterado para um tema carnavalesco,por fim é alterado para o tema de páscoa com o coelho como personagem.O desafio permanece o mesmo: sobreviver o máximo possível sem colidir com os obstáculos. No entanto, agora o ambiente está repleto de sombras, sons arrepiantes e uma atmosfera sombria em todas as temáticas do jogo.
+<b>CreepyThings</b> é uma recriação do clássico Flappy Bird, mas com um toque assustador, carnavalesco, natalino e pascual, em vez de guiar um pássaro alegre através de canos, você controla um corvo sombrio voando através de um cemitério cheio de lápides e árvores mortas, ao atingir certa pontuação, o senário e o personagem mudam para um bode em um tema nataino, em outro momento é alterado para um tema carnavalesco,por fim é alterado para o tema de páscoa com o coelho como personagem.O desafio permanece o mesmo: sobreviver o máximo possível sem colidir com os obstáculos. No entanto, agora o ambiente está repleto de sombras, sons arrepiantes e uma atmosfera sombria em todas as temáticas do jogo.
 
 Prepare-se para uma experiência divertida, aterrorizante, natalina e carnavalesca, com gráficos inspirados no mundo do terror e sons que farão sua espinha gelar.
 
